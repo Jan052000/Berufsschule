@@ -162,5 +162,39 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 			}
 			return command + String.Join(",\n", values.ToArray());
 		}
+
+		/// <summary>
+		/// Updates a single row where all primary keys match <paramref name="updatedRow"/>
+		/// </summary>
+		/// <param name="updatedRow"><see cref="DbBaseClass"/> object to update row of</param>
+		/// <returns>Command for row update</returns>
+		public static string GetUpdateRowCommand(DbBaseClass updatedRow)
+		{
+			List<string> command = new List<string>()
+			{
+				$"UPDATE {GetTableName(updatedRow)}\nSET\n"
+			};
+			List<PropertyInfo> properties = updatedRow.GetType().GetProperties()
+				.Where(prop => prop.GetCustomAttribute<ColumnAttribute>() is not null and not PrimaryKeyAttribute).ToList();
+
+			List<string> values = new List<string>();
+			foreach (PropertyInfo property in properties)
+			{
+				ColumnAttribute attr = property.GetCustomAttribute<ColumnAttribute>()!;
+				values.Add($"{attr.ColumnName}={property.GetValue(updatedRow)}");
+			}
+			command.Add(String.Join(",\n", values));
+
+			List<string> wheres = new List<string>();
+			List<PropertyInfo> primaryKeys = updatedRow.GetType().GetProperties()
+				.Where(prop => prop.GetCustomAttribute<PrimaryKeyAttribute>() != null).ToList();
+			foreach (PropertyInfo property in primaryKeys)
+			{
+				wheres.Add($"{property.GetCustomAttribute<PrimaryKeyAttribute>()!.ColumnName}={property.GetValue(updatedRow)}");
+			}
+			command.Add("WHERE");
+			command.Add(String.Join(",\n", wheres));
+			return String.Join("\n", command);
+		}
 	}
 }
