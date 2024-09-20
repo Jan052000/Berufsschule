@@ -151,6 +151,11 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 			return command + String.Join(",\n", values.ToArray());
 		}
 
+		public static string GetUpdateStatusCommand(Liegeplatz platz, int newStatus)
+		{
+			return $"UPDATE {GetTableName(platz)} SET Status={newStatus} WHERE ID={platz.ID}";
+		}
+
 		/// <summary>
 		/// Updates a single row where all primary keys match <paramref name="updatedRow"/>
 		/// </summary>
