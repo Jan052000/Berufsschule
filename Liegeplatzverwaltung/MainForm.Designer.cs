@@ -30,7 +30,6 @@
 		{
 			btAddNew = new Button();
 			btRemoveSelected = new Button();
-			btEdit = new Button();
 			dataGridView1 = new DataGridView();
 			((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
 			SuspendLayout();
@@ -55,20 +54,13 @@
 			btRemoveSelected.Text = "-";
 			btRemoveSelected.UseVisualStyleBackColor = true;
 			// 
-			// btEdit
-			// 
-			btEdit.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			btEdit.Location = new Point(713, 84);
-			btEdit.Name = "btEdit";
-			btEdit.Size = new Size(75, 30);
-			btEdit.TabIndex = 2;
-			btEdit.Text = "Edit";
-			btEdit.UseVisualStyleBackColor = true;
-			// 
 			// dataGridView1
 			// 
+			dataGridView1.AllowUserToAddRows = false;
+			dataGridView1.AllowUserToDeleteRows = false;
 			dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			dataGridView1.EditMode = DataGridViewEditMode.EditOnEnter;
 			dataGridView1.Location = new Point(0, 0);
 			dataGridView1.Name = "dataGridView1";
 			dataGridView1.Size = new Size(707, 450);
@@ -80,7 +72,6 @@
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(800, 450);
 			Controls.Add(dataGridView1);
-			Controls.Add(btEdit);
 			Controls.Add(btRemoveSelected);
 			Controls.Add(btAddNew);
 			Name = "MainForm";
@@ -93,7 +84,6 @@
 
 		private Button btAddNew;
 		private Button btRemoveSelected;
-		private Button btEdit;
 		private DataGridView dataGridView1;
 	}
 }

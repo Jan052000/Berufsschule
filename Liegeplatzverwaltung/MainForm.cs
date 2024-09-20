@@ -1,6 +1,7 @@
 using Liegeplatzverwaltung.DataBaseObjects;
 using Liegeplatzverwaltung.DataBaseUtils;
 using System.Data.SQLite;
+using System.Reflection;
 
 namespace Liegeplatzverwaltung
 {
@@ -9,10 +10,31 @@ namespace Liegeplatzverwaltung
 		private const string DBFILENAME = "liegeplaetze.db";
 		private static string DbPath = Path.GetFullPath($"./{DBFILENAME}");
 		private static string ConnectionString = $"Data Source={DbPath}; Version=3";
+
+		private bool IsUpdating { get; set; } = false;
+
 		public MainForm()
 		{
 			SetUpDataBase();
 			InitializeComponent();
+			DataGridViewUtils.DataGridViewUtils.GenerateColumns(dataGridView1, new Liegeplatz());
+			FillDataGridView();
+			dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
+		}
+
+		private void FillDataGridView()
+		{
+			using SQLiteConnection conn = new SQLiteConnection(ConnectionString);
+			conn.Open();
+			using (SQLiteCommand cmd = conn.CreateCommand())
+			{
+				cmd.CommandText = DbUtils.GetGetAllCommand<Liegeplatz>();
+				SQLiteDataReader reader = cmd.ExecuteReader();
+				while (reader.Read())
+				{
+					DataGridViewUtils.DataGridViewUtils.AddItemToDataGridView(dataGridView1, DbBaseClass.Serialize<Liegeplatz>(reader));
+				}
+			}
 		}
 
 		private void SetUpDataBase()
@@ -28,7 +50,7 @@ namespace Liegeplatzverwaltung
 			}
 			using (SQLiteCommand cmd = conn.CreateCommand())
 			{
-				cmd.CommandText = DbUtils.GetFillTableWithDataCommand(TestData.GetBesitzerData());
+				cmd.CommandText = DbUtils.GetFillTableWithDataCommand(TestData.GetBesitzerData(), new SQLiteDialect());
 				cmd.ExecuteNonQuery();
 			}
 
@@ -39,7 +61,7 @@ namespace Liegeplatzverwaltung
 			}
 			using (SQLiteCommand cmd = conn.CreateCommand())
 			{
-				cmd.CommandText = DbUtils.GetFillTableWithDataCommand(TestData.GetYachtData());
+				cmd.CommandText = DbUtils.GetFillTableWithDataCommand(TestData.GetYachtData(), new SQLiteDialect());
 				cmd.ExecuteNonQuery();
 			}
 
@@ -50,9 +72,34 @@ namespace Liegeplatzverwaltung
 			}
 			using (SQLiteCommand cmd = conn.CreateCommand())
 			{
-				cmd.CommandText = DbUtils.GetFillTableWithDataCommand(TestData.GetLiegeplatzData());
+				cmd.CommandText = DbUtils.GetFillTableWithDataCommand(TestData.GetLiegeplatzData(), new SQLiteDialect());
 				cmd.ExecuteNonQuery();
 			}
+		}
+
+		private void dataGridView1_CellValueChanged(object? sender, DataGridViewCellEventArgs e)
+		{
+			if (IsUpdating)
+				return;
+			DataGridView? dgv = sender as DataGridView;
+			if (dgv is null)
+				return;
+			DataGridViewCell cell = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
+			if (MessageBox.Show("Save changes?", "Save changes?", MessageBoxButtons.YesNo) != DialogResult.Yes)
+			{
+				IsUpdating = true;
+				cell.Value = DataGridViewUtils.DataGridViewUtils.GetTagValueForCell(cell);
+				IsUpdating = false;
+				return;
+			}
+			using SQLiteConnection conn = new SQLiteConnection(ConnectionString);
+			conn.Open();
+			using SQLiteCommand cmd = conn.CreateCommand();
+
+			DataGridViewUtils.DataGridViewUtils.UpdateInfoOnTag(cell, (Liegeplatz)cell.OwningRow.Tag!);
+
+			cmd.CommandText = DbUtils.GetUpdateRowCommand((Liegeplatz)dgv.Rows[e.RowIndex].Tag!, new SQLiteDialect());
+			cmd.ExecuteNonQuery();
 		}
 	}
 }
