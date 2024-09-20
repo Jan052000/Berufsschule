@@ -189,5 +189,10 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 			command.Add(String.Join(",\n", wheres));
 			return String.Join("\n", command);
 		}
+
+		public static string GetGetAllCommand<T>() where T : class
+		{
+			return $"SELECT * FROM {GetTableName<T>()}";
+		}
 	}
 }
