@@ -19,6 +19,25 @@ namespace Liegeplatzverwaltung
 			{ typeof(DateTime?), "DATE" },
 		};
 
+		public string FormatValue(object? value)
+		{
+			switch (value)
+			{
+				case string:
+					return $"'{value}'";
+				case byte[]:
+					string res = "";
+					string file = BitConverter.ToString((byte[])value, 0);
+					if (file == "")
+						res += "0x0";
+					else
+						res += "0x" + file.Replace("-", "");
+					return res;
+				default:
+					return value?.ToString();
+			}
+		}
+
 		public string GetDBType(Type type)
 		{
 			if (!TypeSwitch.ContainsKey(type))

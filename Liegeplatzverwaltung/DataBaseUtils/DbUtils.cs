@@ -1,4 +1,5 @@
-﻿using Liegeplatzverwaltung.DataBaseUtils.Attributes;
+using Liegeplatzverwaltung.DataBaseObjects;
+using Liegeplatzverwaltung.DataBaseUtils.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -11,8 +12,6 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 {
 	public class DbUtils
 	{
-		public DbUtils() { }
-
 		/// <summary>
 		/// Gets table name from <typeparamref name="T"/>
 		/// </summary>
@@ -128,7 +127,7 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 		/// <param name="objects"><see cref="List{T}"/> of objects to add to table</param>
 		/// <returns>Insert command for table</returns>
 		/// <exception cref="Exception"></exception>
-		public static string GetFillTableWithDataCommand<T>(List<T> objects) where T : class
+		public static string GetFillTableWithDataCommand<T>(List<T> objects, IDbTypeSwitch dialect) where T : class
 		{
 			string command = $"INSERT INTO {GetTableName<T>()} ({String.Join(",", GetColumnNames<T>())})\nVALUES\n";
 			List<string> values = new List<string>();
@@ -144,18 +143,7 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 				string value = "(";
 				foreach (var property in properties)
 				{
-					if (property.PropertyType == typeof(byte[]))
-					{
-						string file = BitConverter.ToString((byte[])property.GetValue(item)!, 0);
-						if (file == "")
-							value += "0x0,";
-						else
-							value += "0x" + file.Replace("-", "") + ",";
-					}
-					else if (property.PropertyType == typeof(string))
-						value += $"'{property.GetValue(item)}',";
-					else
-						value += property.GetValue(item) + ",";
+					value += dialect.FormatValue(property.GetValue(item)) + ",";
 				}
 				value = value.Substring(0, value.Length - 1) + ")";
 				values.Add(value);
@@ -168,7 +156,7 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 		/// </summary>
 		/// <param name="updatedRow"><see cref="DbBaseClass"/> object to update row of</param>
 		/// <returns>Command for row update</returns>
-		public static string GetUpdateRowCommand(DbBaseClass updatedRow)
+		public static string GetUpdateRowCommand(DbBaseClass updatedRow, IDbTypeSwitch dialect)
 		{
 			List<string> command = new List<string>()
 			{
@@ -181,7 +169,7 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 			foreach (PropertyInfo property in properties)
 			{
 				ColumnAttribute attr = property.GetCustomAttribute<ColumnAttribute>()!;
-				values.Add($"{attr.ColumnName}={property.GetValue(updatedRow)}");
+				values.Add($"{attr.ColumnName}={dialect.FormatValue(property.GetValue(updatedRow))}");
 			}
 			command.Add(String.Join(",\n", values));
 
@@ -190,7 +178,7 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 				.Where(prop => prop.GetCustomAttribute<PrimaryKeyAttribute>() != null).ToList();
 			foreach (PropertyInfo property in primaryKeys)
 			{
-				wheres.Add($"{property.GetCustomAttribute<PrimaryKeyAttribute>()!.ColumnName}={property.GetValue(updatedRow)}");
+				wheres.Add($"{property.GetCustomAttribute<PrimaryKeyAttribute>()!.ColumnName}={dialect.FormatValue(property.GetValue(updatedRow))}");
 			}
 			command.Add("WHERE");
 			command.Add(String.Join(",\n", wheres));
