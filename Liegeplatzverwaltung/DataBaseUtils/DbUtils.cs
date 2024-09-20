@@ -1,4 +1,4 @@
-using Liegeplatzverwaltung.DataBaseObjects;
+﻿using Liegeplatzverwaltung.DataBaseObjects;
 using Liegeplatzverwaltung.DataBaseUtils.Attributes;
 using System;
 using System.Collections.Generic;
@@ -193,6 +193,28 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 		public static string GetGetAllCommand<T>() where T : class
 		{
 			return $"SELECT * FROM {GetTableName<T>()}";
+		}
+
+		public static string GetDeleteCommand<T>(List<T> toDelete, IDbTypeSwitch dialect) where T : class
+		{
+			string command = $"DELETE FROM {GetTableName<T>()}\nWHERE\n";
+
+			List<string> wheres = new List<string>();
+			List<PropertyInfo> primaryKeys = typeof(T).GetProperties().Where(prop => prop.GetCustomAttribute<PrimaryKeyAttribute>() is not null).ToList();
+			foreach (T item in toDelete)
+			{
+				List<string> clauses = new List<string>();
+
+				foreach (PropertyInfo property in primaryKeys)
+				{
+					clauses.Add($"{property.GetCustomAttribute<PrimaryKeyAttribute>()!.ColumnName}={dialect.FormatValue(property.GetValue(item))}");
+				}
+
+				wheres.Add($"({String.Join("AND\n", clauses)})");
+			}
+			command += String.Join("OR\n", wheres);
+
+			return command;
 		}
 	}
 }
