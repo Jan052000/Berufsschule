@@ -6,18 +6,18 @@ namespace Liegeplatzverwaltung.DataBaseObjects
 	[Table("Yacht")]
 	public class Yacht : DbBaseClass
 	{
-		[PrimaryKey("KennNummer")]
-		public int ID { get; set; }
+		[PrimaryKey("KennNummer", AutoIncrement = true)]
+		public long ID { get; }
 		[ForeignKey("Besitzer", typeof(Besitzer), "UUID")]
-		public int OwnerID { get; set; }
+		public long OwnerID { get; set; }
 		[Column("Name")]
 		public string Name { get; set; }
 		[Column("Breite")]
-		public int? Width { get; set; }
+		public long? Width { get; set; }
 		[Column("Laenge")]
-		public int? Height { get; set; }
+		public long? Height { get; set; }
 		[Column("Tiefe")]
-		public int? Depth { get; set; }
+		public long? Depth { get; set; }
 		[Column("Schifftyp")]
 		public string ShipType { get; set; }
 	}

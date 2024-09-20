@@ -6,8 +6,8 @@ namespace Liegeplatzverwaltung.DataBaseObjects
 	[Table("Besitzer")]
 	public class Besitzer : DbBaseClass
 	{
-		[PrimaryKey("UUID")]
-		public int ID { get; set; }
+		[PrimaryKey("UUID", AutoIncrement = true)]
+		public long ID { get; }
 		[Column("Name")]
 		public string SurName { get; set; }
 		[Column("Vorname")]

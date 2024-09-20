@@ -9,13 +9,17 @@ namespace Liegeplatzverwaltung
 {
 	internal class SQLiteDialect : IDbTypeSwitch
 	{
+		public string AutoIncrementString { get => "AUTOINCREMENT"; }
+
+		public string InLinePrimaryKeyString => "PRIMARY KEY";
+
 		private Dictionary<Type, string> TypeSwitch { get; } = new Dictionary<Type, string>()
 		{
 			{ typeof(string), "TEXT" },
-			{ typeof(int), "INT" },
+			{ typeof(int), "INTEGER" },
 			{ typeof(DateTime), "DATE" },
 			{ typeof(byte[]), "BLOB" },
-			{ typeof(int?), "INT" },
+			{ typeof(int?), "INTEGER" },
 			{ typeof(DateTime?), "DATE" },
 		};
 

@@ -61,7 +61,7 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 		/// <returns><see cref="List{string}"/> of column names</returns>
 		public static List<string> GetColumnNames<T>() where T : class
 		{
-			List<string> result = typeof(T).GetProperties().Where(prop => prop.GetCustomAttribute<ColumnAttribute>() != null)
+			List<string> result = typeof(T).GetProperties().Where(prop => prop.GetCustomAttribute<ColumnAttribute>() != null && !(prop.GetCustomAttribute<PrimaryKeyAttribute>()?.AutoIncrement).GetValueOrDefault())
 				.Select(item => item.GetCustomAttribute<ColumnAttribute>()!.ColumnName).ToList();
 			return result;
 		}
@@ -76,48 +76,51 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 		/// <exception cref="Exception"></exception>
 		public static string GetCreateCommand<T>(IDbTypeSwitch typeDialect, bool ifNotExists = true) where T : class
 		{
-			List<string> commandParts = new List<string>();
-			string createCommand = $"CREATE TABLE {(ifNotExists ? "IF NOT EXISTS" : "")} {GetTableName<T>()} (\n";
+			List<string> commandParts = new List<string>() { $"CREATE TABLE{(ifNotExists ? " IF NOT EXISTS" : "")} {GetTableName<T>()} (" };
+			List<PropertyInfo> primaryKeys = typeof(T).GetProperties().Where(prop => prop.GetCustomAttribute<PrimaryKeyAttribute>() is not null).ToList();
+			List<PropertyInfo> foreignKeys = typeof(T).GetProperties().Where(prop => prop.GetCustomAttribute<ForeignKeyAttribute>() is not null).ToList();
+			List<PropertyInfo> properties = typeof(T).GetProperties().Where(prop => prop.GetCustomAttribute<ColumnAttribute>() is not null and not PrimaryKeyAttribute and not ForeignKeyAttribute).ToList();
 
-			List<PropertyInfo> properties = typeof(T).GetProperties().ToList().Where(prop =>
+			List<string> columns = new List<string>();
+
+			switch (primaryKeys.Count)
 			{
-				return prop.GetCustomAttribute<ColumnAttribute>() != null;
-			}).ToList();
-
-			if (properties.Count == 0)
-				throw new Exception($"No columns were found on type {typeof(T).Name}");
-
-			properties.ForEach(prop =>
-			{
-				commandParts.Add($"{prop.GetCustomAttribute<ColumnAttribute>()!.ColumnName} {typeDialect.GetDBType(prop.PropertyType)}");
-			});
-
-			List<PropertyInfo> primaryKeys = typeof(T).GetProperties().ToList().Where(prop =>
-			{
-				return prop.GetCustomAttribute<PrimaryKeyAttribute>() != null;
-			}).ToList();
-
-			List<string> primarys = new List<string>();
-			primaryKeys.ForEach(prop =>
-			{
-				primarys.Add(prop.GetCustomAttribute<PrimaryKeyAttribute>()!.ColumnName);
-			});
-			commandParts.Add($"\nPRIMARY KEY ({String.Join(",", primarys)})");
-
-			List<PropertyInfo> foreignKeys = typeof(T).GetProperties().ToList().Where(prop =>
-			{
-				return prop.GetCustomAttribute<ForeignKeyAttribute>() != null;
-			}).ToList();
+				case int count when count == 1:
+					PrimaryKeyAttribute pattr = primaryKeys[0].GetCustomAttribute<PrimaryKeyAttribute>()!;
+					columns.Add($"{pattr.ColumnName} {typeDialect.GetDBType(primaryKeys[0].PropertyType)} {typeDialect.InLinePrimaryKeyString}{((pattr.AutoIncrement ? $" {typeDialect.AutoIncrementString}" : ""))}");
+					break;
+				case int count when count > 1:
+					List<string> primarys = new List<string>();
+					primaryKeys.ForEach(prop =>
+					{
+						PrimaryKeyAttribute pattr = prop.GetCustomAttribute<PrimaryKeyAttribute>()!;
+						primarys.Add(pattr.ColumnName);
+						columns.Add($"{pattr.ColumnName} {typeDialect.GetDBType(prop.PropertyType)}");
+					});
+					columns.Add($"\nPRIMARY KEY ({String.Join(",", primarys)})");
+					break;
+			}
 
 			foreignKeys.ForEach(prop =>
 			{
 				ForeignKeyAttribute attr = prop.GetCustomAttribute<ForeignKeyAttribute>()!;
-				commandParts.Add($"FOREIGN KEY ({attr.ColumnName}) REFERENCES {attr.ReferencedTable}({attr.ReferencedColumn})");
+				columns.Add($"{attr.ColumnName} {typeDialect.GetDBType(prop.PropertyType)}");
 			});
-			createCommand += String.Join(",", commandParts);
 
-			createCommand += ")";
-			return createCommand;
+			properties.ForEach(prop =>
+			{
+				columns.Add($"{prop.GetCustomAttribute<ColumnAttribute>()!.ColumnName} {typeDialect.GetDBType(prop.PropertyType)}");
+			});
+
+			foreignKeys.ForEach(prop =>
+			{
+				ForeignKeyAttribute attr = prop.GetCustomAttribute<ForeignKeyAttribute>()!;
+				columns.Add($"FOREIGN KEY ({attr.ColumnName}) REFERENCES {attr.ReferencedTable}({attr.ReferencedColumn})");
+			});
+			commandParts.Add(String.Join(",\n", columns));
+
+			commandParts.Add(");");
+			return String.Join("\n", commandParts);
 		}
 
 		/// <summary>
@@ -143,6 +146,8 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 				string value = "(";
 				foreach (var property in properties)
 				{
+					if (property.GetCustomAttribute<PrimaryKeyAttribute>()?.AutoIncrement is bool b && b)
+						continue;
 					value += dialect.FormatValue(property.GetValue(item)) + ",";
 				}
 				value = value.Substring(0, value.Length - 1) + ")";

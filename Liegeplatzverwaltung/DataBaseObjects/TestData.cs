@@ -16,7 +16,6 @@ namespace Liegeplatzverwaltung.DataBaseObjects
 				{
 					Address = "Juckt",
 					EMail = "Test@Test.Test",
-					ID = 0,
 					Name = "das an",
 					Phone = "0",
 					SurName = "Was geht sie"
@@ -25,7 +24,6 @@ namespace Liegeplatzverwaltung.DataBaseObjects
 				{
 					Address = "faul",
 					EMail = "faul",
-					ID = 1,
 					Name = "faul",
 					Phone = "1",
 					SurName = "zu"
@@ -41,7 +39,6 @@ namespace Liegeplatzverwaltung.DataBaseObjects
 				{
 					Depth = 15,
 					Height = 5,
-					ID = 0,
 					Name = "AWW MAN",
 					OwnerID = 0,
 					ShipType = "U-Boot",
@@ -51,7 +48,6 @@ namespace Liegeplatzverwaltung.DataBaseObjects
 				{
 					Depth = 55,
 					Height = 150,
-					ID = 1,
 					Name = "Creeper",
 					OwnerID = 1,
 					ShipType = "Schlachtkreuzer",
@@ -69,7 +65,6 @@ namespace Liegeplatzverwaltung.DataBaseObjects
 					Depth = 5,
 					Description = "Pier 0",
 					Height = 900,
-					ID = 0,
 					Image = [],
 					Short = "0",
 					Status = 0,
@@ -81,7 +76,6 @@ namespace Liegeplatzverwaltung.DataBaseObjects
 					Depth = 25,
 					Description = "Pier 1",
 					Height = 30,
-					ID = 1,
 					Image = [],
 					Short = "1",
 					Status = -1,
@@ -93,7 +87,6 @@ namespace Liegeplatzverwaltung.DataBaseObjects
 					Depth = 55,
 					Description = "Pier 2",
 					Height = 150,
-					ID = 2,
 					Image = [],
 					Short = "1",
 					Status = 1,
@@ -105,7 +98,6 @@ namespace Liegeplatzverwaltung.DataBaseObjects
 					Depth = 5,
 					Description = "Pier 3",
 					Height = 900,
-					ID = 3,
 					Image = [],
 					Short = "3",
 					Status = 0,

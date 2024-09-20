@@ -43,6 +43,7 @@
 			btAddNew.TabIndex = 0;
 			btAddNew.Text = "+";
 			btAddNew.UseVisualStyleBackColor = true;
+			btAddNew.Click += btAddNew_Click;
 			// 
 			// btRemoveSelected
 			// 

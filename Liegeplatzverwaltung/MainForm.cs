@@ -119,5 +119,10 @@ namespace Liegeplatzverwaltung
 
 			toRemove.ForEach(dataGridView1.Rows.Remove);
 		}
+
+		private void btAddNew_Click(object sender, EventArgs e)
+		{
+
+		}
 	}
 }
