@@ -53,6 +53,7 @@
 			btRemoveSelected.TabIndex = 1;
 			btRemoveSelected.Text = "-";
 			btRemoveSelected.UseVisualStyleBackColor = true;
+			btRemoveSelected.Click += btRemoveSelected_Click;
 			// 
 			// dataGridView1
 			// 

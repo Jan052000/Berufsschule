@@ -101,5 +101,23 @@ namespace Liegeplatzverwaltung
 			cmd.CommandText = DbUtils.GetUpdateRowCommand((Liegeplatz)dgv.Rows[e.RowIndex].Tag!, new SQLiteDialect());
 			cmd.ExecuteNonQuery();
 		}
+
+		private void btRemoveSelected_Click(object sender, EventArgs e)
+		{
+			if (MessageBox.Show($"Delete {dataGridView1.SelectedRows.Count} rows?", "Delete seleted rows?", MessageBoxButtons.YesNo) != DialogResult.Yes)
+				return;
+
+			List<DataGridViewRow> toRemove = [.. dataGridView1.SelectedRows.Cast<DataGridViewRow>()];
+
+			using SQLiteConnection conn = new SQLiteConnection(ConnectionString);
+			conn.Open();
+			using (SQLiteCommand cmd = conn.CreateCommand())
+			{
+				cmd.CommandText = DbUtils.GetDeleteCommand(toRemove.Select(item => item.Tag).Cast<Liegeplatz>().ToList(), new SQLiteDialect());
+				cmd.ExecuteNonQuery();
+			}
+
+			toRemove.ForEach(dataGridView1.Rows.Remove);
+		}
 	}
 }
