@@ -28,7 +28,7 @@ namespace Liegeplatzverwaltung
 					return $"'{value}'";
 				case byte[] img:
 					string res = "";
-					string file = BitConverter.ToString((byte[])value, 0);
+					string file = BitConverter.ToString(img, 0);
 					if (file == "")
 						res += "''";
 					else
@@ -36,27 +36,8 @@ namespace Liegeplatzverwaltung
 
 					return res;
 				default:
-					return value?.ToString();
+					return value.ToString() ?? "''";
 			}
-		}
-
-		object? SwitchDefault(Type type)
-		{
-			if (type == typeof(long) || type == typeof(int) || type == typeof(double) || type == typeof(decimal))
-				return -1;
-			if (type == typeof(string))
-				return "''";
-			if (type == typeof(DateTime))
-				return new DateTime();
-			if (type == typeof(byte[]))
-				return new byte[0];
-
-			if (type == typeof(long?) || type == typeof(int?) || type == typeof(double?) || type == typeof(decimal?))
-				return -1;
-			if (type == typeof(DateTime?))
-				return new DateTime();
-
-			return null;
 		}
 
 		public string GetDBType(Type type)
