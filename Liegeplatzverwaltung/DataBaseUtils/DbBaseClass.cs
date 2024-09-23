@@ -7,7 +7,13 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 {
 	public class DbBaseClass
 	{
-		public static DbBaseClass Serialize<T>(DbDataReader reader) where T : DbBaseClass, new()
+		/// <summary>
+		/// Serializes an object of <see cref="Type"/> <typeparamref name="T"/> from a row in <paramref name="reader"/>
+		/// </summary>
+		/// <typeparam name="T"><see cref="Type"/> to serialize object of</typeparam>
+		/// <param name="reader"><see cref="DbDataReader"/> that holds data to serialize</param>
+		/// <returns>Objet of <see cref="Type"/> <typeparamref name="T"/> filled with informarion from <paramref name="reader"/></returns>
+		public static T Serialize<T>(DbDataReader reader) where T : DbBaseClass, new()
 		{
 			T n = new();
 			List<PropertyInfo> properties = n.GetType().GetProperties().
@@ -38,6 +44,11 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 			return n;
 		}
 
+		/// <summary>
+		/// Converts the string resulting from a call to <see cref="BitConverter.ToString(byte[])"/> back to a <see cref="byte"/>[]
+		/// </summary>
+		/// <param name="byteArray">String obtained from <see cref="BitConverter"/></param>
+		/// <returns>1 to 1 <see cref="byte"/>[] translation of <paramref name="byteArray"/></returns>
 		private static byte[] ByteStringToArray(string byteArray)
 		{
 			int length = (byteArray.Length + 1) / 3;

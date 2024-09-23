@@ -142,7 +142,7 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 				{
 					if (property.GetCustomAttribute<PrimaryKeyAttribute>()?.AutoIncrement is bool b && b)
 						continue;
-					value += dialect.FormatValue(property.GetValue(item), property.PropertyType) + ",";
+					value += dialect.FormatValue(property.GetValue(item)) + ",";
 				}
 				value = value.Substring(0, value.Length - 1) + ")";
 				values.Add(value);
@@ -173,7 +173,7 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 			foreach (PropertyInfo property in properties)
 			{
 				ColumnAttribute attr = property.GetCustomAttribute<ColumnAttribute>()!;
-				values.Add($"{attr.ColumnName}={dialect.FormatValue(property.GetValue(updatedRow), property.PropertyType)}");
+				values.Add($"{attr.ColumnName}={dialect.FormatValue(property.GetValue(updatedRow))}");
 			}
 			command.Add(String.Join(",\n", values));
 
@@ -182,18 +182,30 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 				.Where(prop => prop.GetCustomAttribute<PrimaryKeyAttribute>() != null).ToList();
 			foreach (PropertyInfo property in primaryKeys)
 			{
-				wheres.Add($"{property.GetCustomAttribute<PrimaryKeyAttribute>()!.ColumnName}={dialect.FormatValue(property.GetValue(updatedRow), property.PropertyType)}");
+				wheres.Add($"{property.GetCustomAttribute<PrimaryKeyAttribute>()!.ColumnName}={dialect.FormatValue(property.GetValue(updatedRow))}");
 			}
 			command.Add("WHERE");
 			command.Add(String.Join(",\n", wheres));
 			return String.Join("\n", command);
 		}
 
+		/// <summary>
+		/// Generates a command to get all rows from a table defined in <typeparamref name="T"/>
+		/// </summary>
+		/// <typeparam name="T"><see cref="Type"/> to grab <see cref="TableAttribute"/> from</typeparam>
+		/// <returns>Get command</returns>
 		public static string GetGetAllCommand<T>() where T : class
 		{
 			return $"SELECT * FROM {GetTableName<T>()}";
 		}
 
+		/// <summary>
+		/// Generates a command to delete a <see cref="List{T}"/> of items from their table
+		/// </summary>
+		/// <typeparam name="T"><see cref="Type"/> to grab <see cref="TableAttribute"/> from</typeparam>
+		/// <param name="toDelete"><see cref="List{T}"/> of items to delete</param>
+		/// <param name="dialect"><see cref="IDbTypeSwitch"/> to use for formatting values</param>
+		/// <returns>Delete command</returns>
 		public static string GetDeleteCommand<T>(List<T> toDelete, IDbTypeSwitch dialect) where T : class
 		{
 			string command = $"DELETE FROM {GetTableName<T>()}\nWHERE\n";
@@ -206,7 +218,7 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 
 				foreach (PropertyInfo property in primaryKeys)
 				{
-					clauses.Add($"{property.GetCustomAttribute<PrimaryKeyAttribute>()!.ColumnName}={dialect.FormatValue(property.GetValue(item), property.PropertyType)}");
+					clauses.Add($"{property.GetCustomAttribute<PrimaryKeyAttribute>()!.ColumnName}={dialect.FormatValue(property.GetValue(item))}");
 				}
 
 				wheres.Add($"({String.Join("AND\n", clauses)})");

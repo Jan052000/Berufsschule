@@ -18,7 +18,7 @@ namespace Liegeplatzverwaltung
 			{ typeof(DateTime?), "DATE" },
 		};
 
-		public string FormatValue(object? value, Type valueType)
+		public string FormatValue(object? value)
 		{
 			switch (value)
 			{
