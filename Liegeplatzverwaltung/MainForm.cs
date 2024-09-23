@@ -122,7 +122,19 @@ namespace Liegeplatzverwaltung
 
 		private void btAddNew_Click(object sender, EventArgs e)
 		{
-
+			AddLiegeplatz form = new AddLiegeplatz();
+			if (form.ShowDialog() != DialogResult.OK || form.Result is null)
+				return;
+			using SQLiteConnection conn = new SQLiteConnection(ConnectionString);
+			conn.Open();
+			using (SQLiteCommand cmd = conn.CreateCommand())
+			{
+				cmd.CommandText = DbUtils.GetFillTableWithDataCommand(new List<Liegeplatz> { form.Result }, new SQLiteDialect());
+				cmd.ExecuteNonQuery();
+			}
+			dataGridView1.CellValueChanged -= dataGridView1_CellValueChanged;
+			DataGridViewUtils.DataGridViewUtils.AddItemToDataGridView(dataGridView1, form.Result);
+			dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
 		}
 	}
 }
