@@ -1,12 +1,6 @@
 ﻿using Liegeplatzverwaltung.DataBaseObjects;
 using Liegeplatzverwaltung.DataBaseUtils.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Liegeplatzverwaltung.DataBaseUtils
 {
