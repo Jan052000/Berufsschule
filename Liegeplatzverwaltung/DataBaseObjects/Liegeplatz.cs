@@ -31,9 +31,10 @@ namespace Liegeplatzverwaltung.DataBaseObjects
 		public long? Depth { get; set; }
 		[Column("Bild")]
 		[DefaultValue(new byte[0])]
+		[DataGridColumn("Bild", typeof(DataGridViewImageCell), Readonly = true)]
 		public byte[] Image { get; set; }
 		[Column("Status")]
-		[DataGridColumn("Status", typeof(DataGridViewComboBoxCell))]
+		[DataGridColumn("Status", typeof(DataGridViewTextBoxCell/*DataGridViewComboBoxCell*/))]
 		public long? Status { get; set; }
 	}
 }

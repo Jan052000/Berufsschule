@@ -1,7 +1,6 @@
 using Liegeplatzverwaltung.DataBaseObjects;
 using Liegeplatzverwaltung.DataBaseUtils;
 using System.Data.SQLite;
-using System.Reflection;
 
 namespace Liegeplatzverwaltung
 {

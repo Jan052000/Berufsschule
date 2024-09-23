@@ -24,7 +24,10 @@ namespace Liegeplatzverwaltung.DataGridViewUtils
 			foreach (PropertyInfo property in columns)
 			{
 				DataGridColumnAttribute column = property.GetCustomAttribute<DataGridColumnAttribute>()!;
-				int index = dataGridView.Columns.Add("col" + column.DisplayName, column.DisplayName);
+				DataGridViewColumn col = DataGridViewCellSwitch.SwitchType(column.CellType);
+				col.Name = "col" + column.DisplayName;
+				col.HeaderText = column.DisplayName;
+				int index = dataGridView.Columns.Add(col);
 				if (column.Readonly)
 					dataGridView.Columns[index].ReadOnly = true;
 			}
@@ -40,7 +43,13 @@ namespace Liegeplatzverwaltung.DataGridViewUtils
 			{
 				if (prop.GetCustomAttribute<DataGridColumnAttribute>() is not DataGridColumnAttribute attr)
 					return;
-				dataGridView.Rows[index].Cells[GetColumnName(attr.DisplayName)].Value = prop.GetValue(item);
+				if (attr.CellType == typeof(DataGridViewImageCell))
+				{
+					using MemoryStream ms = new MemoryStream(ImageCompression.Decompress((byte[])prop.GetValue(item)));
+					dataGridView.Rows[index].Cells[GetColumnName(attr.DisplayName)].Value = ms.Length > 0 ? Image.FromStream(ms) : null;
+				}
+				else
+					dataGridView.Rows[index].Cells[GetColumnName(attr.DisplayName)].Value = prop.GetValue(item);
 				//dataGridView.Rows[index].Cells[GetColumnName(attr.DisplayName)].Tag = prop;
 				dataGridView.Rows[index].Tag = item;
 			});

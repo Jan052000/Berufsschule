@@ -45,6 +45,20 @@ namespace Liegeplatzverwaltung
 				labels.Add(l);
 
 				TextBox tb = new TextBox();
+				if (property.PropertyType == typeof(byte[]))
+				{
+					tb.ReadOnly = true;
+					tb.Enter += (s, e) =>
+					{
+						OpenFileDialog fd = new OpenFileDialog()
+						{
+							Filter = "Files|*.jpg;*.jpeg;*.png;"
+						};
+						if (fd.ShowDialog() != DialogResult.OK)
+							return;
+						((TextBox)s!).Text = fd.FileName;
+					};
+				}
 				pa.Controls.Add(tb);
 				textBoxes.Add(tb);
 
@@ -84,7 +98,18 @@ namespace Liegeplatzverwaltung
 					if (Nullable.GetUnderlyingType(propertyInfo.PropertyType) != null)
 						propertyInfo.SetValue(Result, textBox.Text != "" ? SwitchNullable(textBox.Text, propertyInfo.PropertyType) : null);
 					else
-						propertyInfo.SetValue(Result, textBox.Text != "" ? textBox.Text : SwitchDefault(propertyInfo.PropertyType));
+					{
+						if (propertyInfo.PropertyType == typeof(byte[]))
+						{
+							Image img = Image.FromFile(textBox.Text);
+							using MemoryStream ms = new MemoryStream();
+							img.Save(ms, img.RawFormat);
+
+							propertyInfo.SetValue(Result, textBox.Text != "" ? ImageCompression.Compress(ms.ToArray()) : SwitchDefault(propertyInfo.PropertyType));
+						}
+						else
+							propertyInfo.SetValue(Result, textBox.Text != "" ? textBox.Text : SwitchDefault(propertyInfo.PropertyType));
+					}
 				}
 			}
 

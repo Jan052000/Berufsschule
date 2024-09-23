@@ -8,13 +8,14 @@ namespace Liegeplatzverwaltung.DataGridViewUtils
 {
 	public class DataGridViewCellSwitch
 	{
-		private static Dictionary<Type, Func<DataGridViewCell>> CellTypeSwitch = new Dictionary<Type, Func<DataGridViewCell>>()
+		private static Dictionary<Type, Func<DataGridViewColumn>> CellTypeSwitch = new Dictionary<Type, Func<DataGridViewColumn>>()
 		{
-			{typeof(DataGridViewTextBoxCell), () => new DataGridViewTextBoxCell()},
-			{typeof(DataGridViewComboBoxCell), () => new DataGridViewComboBoxCell()},
+			{typeof(DataGridViewTextBoxCell), () => new DataGridViewTextBoxColumn()},
+			{typeof(DataGridViewComboBoxCell), () => new DataGridViewComboBoxColumn()},
+			{typeof(DataGridViewImageCell), () => new DataGridViewImageColumn()}
 		};
 
-		public static DataGridViewCell SwitchType(Type type)
+		public static DataGridViewColumn SwitchType(Type type)
 		{
 			return CellTypeSwitch[type]();
 		}

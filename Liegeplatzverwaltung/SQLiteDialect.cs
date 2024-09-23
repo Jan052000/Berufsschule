@@ -1,6 +1,7 @@
 ﻿using Liegeplatzverwaltung.DataBaseUtils;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -30,13 +31,14 @@ namespace Liegeplatzverwaltung
 			{
 				case string:
 					return $"'{value}'";
-				case byte[]:
+				case byte[] img:
 					string res = "";
 					string file = BitConverter.ToString((byte[])value, 0);
 					if (file == "")
-						res += "0x0";
+						res += "''";
 					else
-						res += "0x" + file.Replace("-", "");
+						res += $"'{file}'";
+
 					return res;
 				default:
 					if (value is null)
