@@ -16,10 +16,10 @@ namespace Liegeplatzverwaltung
 		private Dictionary<Type, string> TypeSwitch { get; } = new Dictionary<Type, string>()
 		{
 			{ typeof(string), "TEXT" },
-			{ typeof(int), "INTEGER" },
+			{ typeof(long), "INTEGER" },
 			{ typeof(DateTime), "DATE" },
 			{ typeof(byte[]), "BLOB" },
-			{ typeof(int?), "INTEGER" },
+			{ typeof(long?), "INTEGER" },
 			{ typeof(DateTime?), "DATE" },
 		};
 
