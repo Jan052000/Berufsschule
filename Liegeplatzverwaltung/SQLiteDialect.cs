@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,7 +24,7 @@ namespace Liegeplatzverwaltung
 			{ typeof(DateTime?), "DATE" },
 		};
 
-		public string FormatValue(object? value)
+		public string FormatValue(object? value, Type valueType)
 		{
 			switch (value)
 			{
@@ -38,8 +39,31 @@ namespace Liegeplatzverwaltung
 						res += "0x" + file.Replace("-", "");
 					return res;
 				default:
+					if (value is null)
+					{
+						return "null";
+					}
 					return value?.ToString();
 			}
+		}
+
+		object? SwitchDefault(Type type)
+		{
+			if (type == typeof(long) || type == typeof(int) || type == typeof(double) || type == typeof(decimal))
+				return -1;
+			if (type == typeof(string))
+				return "''";
+			if (type == typeof(DateTime))
+				return new DateTime();
+			if (type == typeof(byte[]))
+				return new byte[0];
+
+			if (type == typeof(long?) || type == typeof(int?) || type == typeof(double?) || type == typeof(decimal?))
+				return -1;
+			if (type == typeof(DateTime?))
+				return new DateTime();
+
+			return null;
 		}
 
 		public string GetDBType(Type type)

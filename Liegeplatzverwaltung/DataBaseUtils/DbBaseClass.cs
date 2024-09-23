@@ -22,7 +22,10 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 				int ord = reader.GetOrdinal(property.GetCustomAttribute<ColumnAttribute>()!.ColumnName);
 				if (ord > -1)
 				{
-					property.SetValue(n, reader.GetValue(ord));
+					if (reader.IsDBNull(ord))
+						property.SetValue(n, null);
+					else
+						property.SetValue(n, reader.GetValue(ord));
 				}
 			}
 

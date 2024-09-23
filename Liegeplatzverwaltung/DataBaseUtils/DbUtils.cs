@@ -148,7 +148,7 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 				{
 					if (property.GetCustomAttribute<PrimaryKeyAttribute>()?.AutoIncrement is bool b && b)
 						continue;
-					value += dialect.FormatValue(property.GetValue(item)) + ",";
+					value += dialect.FormatValue(property.GetValue(item), property.PropertyType) + ",";
 				}
 				value = value.Substring(0, value.Length - 1) + ")";
 				values.Add(value);
@@ -179,7 +179,7 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 			foreach (PropertyInfo property in properties)
 			{
 				ColumnAttribute attr = property.GetCustomAttribute<ColumnAttribute>()!;
-				values.Add($"{attr.ColumnName}={dialect.FormatValue(property.GetValue(updatedRow))}");
+				values.Add($"{attr.ColumnName}={dialect.FormatValue(property.GetValue(updatedRow), property.PropertyType)}");
 			}
 			command.Add(String.Join(",\n", values));
 
@@ -188,7 +188,7 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 				.Where(prop => prop.GetCustomAttribute<PrimaryKeyAttribute>() != null).ToList();
 			foreach (PropertyInfo property in primaryKeys)
 			{
-				wheres.Add($"{property.GetCustomAttribute<PrimaryKeyAttribute>()!.ColumnName}={dialect.FormatValue(property.GetValue(updatedRow))}");
+				wheres.Add($"{property.GetCustomAttribute<PrimaryKeyAttribute>()!.ColumnName}={dialect.FormatValue(property.GetValue(updatedRow), property.PropertyType)}");
 			}
 			command.Add("WHERE");
 			command.Add(String.Join(",\n", wheres));
@@ -212,7 +212,7 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 
 				foreach (PropertyInfo property in primaryKeys)
 				{
-					clauses.Add($"{property.GetCustomAttribute<PrimaryKeyAttribute>()!.ColumnName}={dialect.FormatValue(property.GetValue(item))}");
+					clauses.Add($"{property.GetCustomAttribute<PrimaryKeyAttribute>()!.ColumnName}={dialect.FormatValue(property.GetValue(item), property.PropertyType)}");
 				}
 
 				wheres.Add($"({String.Join("AND\n", clauses)})");
