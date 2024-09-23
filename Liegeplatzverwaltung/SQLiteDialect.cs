@@ -22,6 +22,8 @@ namespace Liegeplatzverwaltung
 		{
 			switch (value)
 			{
+				case null:
+					return "null";
 				case string:
 					return $"'{value}'";
 				case byte[] img:
@@ -34,10 +36,6 @@ namespace Liegeplatzverwaltung
 
 					return res;
 				default:
-					if (value is null)
-					{
-						return "null";
-					}
 					return value?.ToString();
 			}
 		}
