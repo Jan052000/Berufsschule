@@ -35,6 +35,14 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 							var byteArray = ByteStringToArray(byteArrayString);
 							property.SetValue(n, byteArray);
 						}
+						else if (property.PropertyType.IsEnum)
+						{
+							var temp = reader.GetValue(ord);
+							if (temp is string s)
+								property.SetValue(n, Enum.Parse(property.PropertyType, s));
+							else
+								throw new NotImplementedException();
+						}
 						else
 							property.SetValue(n, reader.GetValue(ord));
 					}

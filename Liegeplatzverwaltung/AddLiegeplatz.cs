@@ -2,6 +2,7 @@
 using Liegeplatzverwaltung.DataBaseUtils.Attributes;
 using System.Data;
 using System.Reflection;
+using Liegeplatzverwaltung.Extensions;
 
 namespace Liegeplatzverwaltung
 {
@@ -18,7 +19,7 @@ namespace Liegeplatzverwaltung
 		private void SetupflpControls()
 		{
 			List<Label> labels = new List<Label>();
-			List<TextBox> textBoxes = new List<TextBox>();
+			List<Control> textBoxes = new List<Control>();
 			List<Panel> panels = new List<Panel>();
 			foreach (var property in typeof(Liegeplatz).GetProperties().Where(prop => prop.GetCustomAttribute<ColumnAttribute>() is not null))
 			{
@@ -34,25 +35,41 @@ namespace Liegeplatzverwaltung
 				l.Size = TextRenderer.MeasureText(l.Text, l.Font);
 				pa.Controls.Add(l);
 				labels.Add(l);
+				Control tb;
 
-				TextBox tb = new TextBox();
-				if (property.PropertyType == typeof(byte[]))
+				if (property.PropertyType.IsEnum)
 				{
-					tb.ReadOnly = true;
-					tb.Enter += (s, e) =>
+					tb = new ComboBox();
+					ComboBox cb = (ComboBox)tb;
+
+					foreach (string item in Enum.GetNames(property.PropertyType))
 					{
-						OpenFileDialog fd = new OpenFileDialog()
-						{
-							Filter = "Files|*.jpg;*.jpeg;*.png;"
-						};
-						if (fd.ShowDialog() != DialogResult.OK)
-							return;
-						((TextBox)s!).Text = fd.FileName;
-					};
+						cb.Items.Add(item);
+					}
+					cb.SelectedIndex = 0;
 				}
+				else
+				{
+
+					tb = new TextBox();
+					if (property.PropertyType == typeof(byte[]))
+					{
+						((TextBox)tb).ReadOnly = true;
+						tb.Enter += (s, e) =>
+						{
+							OpenFileDialog fd = new OpenFileDialog()
+							{
+								Filter = "Files|*.jpg;*.jpeg;*.png;"
+							};
+							if (fd.ShowDialog() != DialogResult.OK)
+								return;
+							((TextBox)s!).Text = fd.FileName;
+						};
+					}
+				}
+
 				pa.Controls.Add(tb);
 				textBoxes.Add(tb);
-
 				pa.Height = tb.Bounds.Height + tb.Margin.Top + tb.Margin.Bottom;
 				pa.Dock = DockStyle.Top;
 				pa.Tag = property;
@@ -122,11 +139,11 @@ namespace Liegeplatzverwaltung
 			object? SwitchNullable(string input, Type type)
 			{
 				if (type == typeof(long?))
-					return Extensions.ToNullable<long>(input);
+					return ExtensionMethods.ToNullable<long>(input);
 				if (type == typeof(int?))
-					return Extensions.ToNullable<int>(input);
+					return ExtensionMethods.ToNullable<int>(input);
 				if (type == typeof(DateTime?))
-					return Extensions.ToNullable<DateTime>(input);
+					return ExtensionMethods.ToNullable<DateTime>(input);
 				throw new NotImplementedException();
 			}
 		}

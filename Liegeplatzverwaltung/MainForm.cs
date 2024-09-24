@@ -31,7 +31,7 @@ namespace Liegeplatzverwaltung
 				SQLiteDataReader reader = cmd.ExecuteReader();
 				while (reader.Read())
 				{
-					DataGridViewUtils.DataGridViewUtils.AddItemToDataGridView(dataGridView1, DbBaseClass.Serialize<Liegeplatz>(reader));
+					Extensions.DataGridViewUtils.AddItemToDataGridView(dataGridView1, DbBaseClass.Serialize<Liegeplatz>(reader));
 				}
 			}
 		}

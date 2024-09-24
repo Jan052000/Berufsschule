@@ -76,7 +76,15 @@ namespace Liegeplatzverwaltung.DataGridViewUtils
 			List<PropertyInfo> toUpdate = pier.GetType().GetProperties().Where(prop => prop.GetCustomAttribute<DataGridColumnAttribute>() is DataGridColumnAttribute attr && attr.DisplayName == cell.OwningColumn.HeaderText).ToList();
 			foreach (PropertyInfo property in toUpdate)
 			{
-				property.SetValue(pier, cell.Value);
+				if (property.PropertyType.IsEnum)
+				{
+					if (cell.Value is string str)
+						property.SetValue(pier, Enum.Parse(property.PropertyType, str));
+					else
+						throw new NotImplementedException();
+				}
+				else
+					property.SetValue(pier, cell.Value);
 			}
 		}
 

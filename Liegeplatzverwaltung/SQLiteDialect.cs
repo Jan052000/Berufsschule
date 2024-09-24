@@ -16,6 +16,7 @@ namespace Liegeplatzverwaltung
 			{ typeof(byte[]), "BLOB" },
 			{ typeof(long?), "INTEGER" },
 			{ typeof(DateTime?), "DATE" },
+			{ typeof(Enum), "TEXT" }
 		};
 
 		public string FormatValue(object? value)
@@ -35,6 +36,8 @@ namespace Liegeplatzverwaltung
 						res += $"'{file}'";
 
 					return res;
+				case Enum:
+					return $"'{Enum.GetName(value.GetType(), value)}'";
 				default:
 					return value.ToString() ?? "''";
 			}

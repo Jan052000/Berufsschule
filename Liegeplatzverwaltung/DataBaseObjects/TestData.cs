@@ -61,7 +61,7 @@
 					Height = 900,
 					Image = [],
 					Short = "0",
-					Status = 0,
+					Status = Status.Open,
 					Width = 35,
 					YachtID = -1
 				},
@@ -72,7 +72,7 @@
 					Height = 30,
 					Image = [],
 					Short = "1",
-					Status = -1,
+					Status = Status.Closed,
 					Width = 35,
 					YachtID = -1
 				},
@@ -83,7 +83,7 @@
 					Height = 150,
 					Image = [],
 					Short = "1",
-					Status = 1,
+					Status = Status.Occupied,
 					Width = 35,
 					YachtID = 0
 				},
@@ -94,7 +94,7 @@
 					Height = 900,
 					Image = [],
 					Short = "3",
-					Status = 0,
+					Status = Status.Rented,
 					Width = 35,
 					YachtID = -1
 				}

@@ -1,6 +1,7 @@
 ﻿using Liegeplatzverwaltung.DataBaseUtils;
 using Liegeplatzverwaltung.DataBaseUtils.Attributes;
 using Liegeplatzverwaltung.DataGridViewUtils.Attributes;
+using Liegeplatzverwaltung.Extensions;
 using System.ComponentModel;
 
 namespace Liegeplatzverwaltung.DataBaseObjects
@@ -34,7 +35,8 @@ namespace Liegeplatzverwaltung.DataBaseObjects
 		[DataGridColumn("Bild", typeof(DataGridViewImageCell), Readonly = true)]
 		public byte[] Image { get; set; }
 		[Column("Status")]
-		[DataGridColumn("Status", typeof(DataGridViewTextBoxCell/*DataGridViewComboBoxCell*/))]
-		public long? Status { get; set; }
+		[DefaultValue(typeof(Status), "Closed")]
+		[StatusComboBoxColumn("Status")]
+		public Status Status { get; set; }
 	}
 }
