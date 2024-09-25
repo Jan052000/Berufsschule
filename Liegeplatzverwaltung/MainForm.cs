@@ -1,5 +1,6 @@
 using Liegeplatzverwaltung.DataBaseObjects;
 using Liegeplatzverwaltung.DataBaseUtils;
+using Liegeplatzverwaltung.FrontendConnection;
 using System.Data.SQLite;
 
 namespace Liegeplatzverwaltung
@@ -19,6 +20,18 @@ namespace Liegeplatzverwaltung
 			DataGridViewUtils.DataGridViewUtils.GenerateColumns(dataGridView1, new Liegeplatz());
 			FillDataGridView();
 			dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
+			new ListenerClass((respObj, resp) =>
+			{
+				if (btRequests.InvokeRequired)
+					btRequests.BeginInvoke(new MethodInvoker(Increment));
+				else
+					Increment();
+
+				void Increment()
+				{
+					btRequests.MessageCount++;
+				}
+			}).Start();
 		}
 
 		private void FillDataGridView()
@@ -80,8 +93,7 @@ namespace Liegeplatzverwaltung
 		{
 			if (IsUpdating)
 				return;
-			DataGridView? dgv = sender as DataGridView;
-			if (dgv is null)
+			if (sender is not DataGridView dgv)
 				return;
 			DataGridViewCell cell = dgv.Rows[e.RowIndex].Cells[e.ColumnIndex];
 			if (MessageBox.Show("Save changes?", "Save changes?", MessageBoxButtons.YesNo) != DialogResult.Yes)
@@ -134,6 +146,11 @@ namespace Liegeplatzverwaltung
 			dataGridView1.CellValueChanged -= dataGridView1_CellValueChanged;
 			DataGridViewUtils.DataGridViewUtils.AddItemToDataGridView(dataGridView1, form.Result);
 			dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
+		}
+
+		private void btRequests_Click(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

@@ -31,6 +31,7 @@
 			btAddNew = new Button();
 			btRemoveSelected = new Button();
 			dataGridView1 = new DataGridView();
+			btRequests = new Extensions.NotifyButton();
 			((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
 			SuspendLayout();
 			// 
@@ -68,11 +69,24 @@
 			dataGridView1.Size = new Size(707, 450);
 			dataGridView1.TabIndex = 3;
 			// 
+			// btRequests
+			// 
+			btRequests.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			btRequests.Font = new Font("Segoe UI", 12F);
+			btRequests.Location = new Point(713, 408);
+			btRequests.Name = "btRequests";
+			btRequests.Size = new Size(75, 30);
+			btRequests.TabIndex = 4;
+			btRequests.Text = "✉";
+			btRequests.UseVisualStyleBackColor = true;
+			btRequests.Click += btRequests_Click;
+			// 
 			// MainForm
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(800, 450);
+			Controls.Add(btRequests);
 			Controls.Add(dataGridView1);
 			Controls.Add(btRemoveSelected);
 			Controls.Add(btAddNew);
@@ -87,5 +101,6 @@
 		private Button btAddNew;
 		private Button btRemoveSelected;
 		private DataGridView dataGridView1;
+		private Extensions.NotifyButton btRequests;
 	}
 }

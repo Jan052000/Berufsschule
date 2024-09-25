@@ -12,9 +12,9 @@ namespace Liegeplatzverwaltung.DataBaseObjects
 		[PrimaryKey("ID", AutoIncrement = true)]
 		public long ID { get; private set; }
 		[ForeignKey("Geparkt", typeof(Yacht), "KennNummer")]
-		[DefaultValue(-1)]
+		[DefaultValue("")]
 		[DataGridColumn("Geparkt", typeof(DataGridViewTextBoxCell))]
-		public long YachtID { get; set; }
+		public string YachtID { get; set; }
 		[Column("Bezeichnung")]
 		[DataGridColumn("Beschreibung", typeof(DataGridViewTextBoxCell))]
 		public string? Description { get; set; }

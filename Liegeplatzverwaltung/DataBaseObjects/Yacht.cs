@@ -6,12 +6,10 @@ namespace Liegeplatzverwaltung.DataBaseObjects
 	[Table("Yacht")]
 	public class Yacht : DbBaseClass
 	{
-		[PrimaryKey("KennNummer", AutoIncrement = true)]
-		public long ID { get; }
-		[ForeignKey("Besitzer", typeof(Besitzer), "UUID")]
-		public long OwnerID { get; set; }
-		[Column("Name")]
-		public string Name { get; set; }
+		[PrimaryKey("KennNummer")]
+		public string ID { get; set; }
+		[Column("BesitzerMail")]
+		public string OwnerMail { get; set; }
 		[Column("Breite")]
 		public long? Width { get; set; }
 		[Column("Laenge")]

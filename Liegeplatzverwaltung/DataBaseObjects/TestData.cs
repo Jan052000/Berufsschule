@@ -33,8 +33,8 @@
 				{
 					Depth = 15,
 					Height = 5,
-					Name = "AWW MAN",
-					OwnerID = 0,
+					ID = "EWWWWWWW",
+					OwnerMail = "t@t.t",
 					ShipType = "U-Boot",
 					Width = 20
 				},
@@ -42,8 +42,8 @@
 				{
 					Depth = 55,
 					Height = 150,
-					Name = "Creeper",
-					OwnerID = 1,
+					ID = "KW-OW-KA-PO-W",
+					OwnerMail = "mr.wasgeht@siedas.an",
 					ShipType = "Schlachtkreuzer",
 					Width = 50
 				}
@@ -63,7 +63,7 @@
 					Short = "0",
 					Status = Status.Open,
 					Width = 35,
-					YachtID = -1
+					YachtID = ""
 				},
 				new Liegeplatz()
 				{
@@ -74,7 +74,7 @@
 					Short = "1",
 					Status = Status.Closed,
 					Width = 35,
-					YachtID = -1
+					YachtID = ""
 				},
 				new Liegeplatz()
 				{
@@ -85,7 +85,7 @@
 					Short = "1",
 					Status = Status.Occupied,
 					Width = 35,
-					YachtID = 0
+					YachtID = GetYachtData()[0].ID
 				},
 				new Liegeplatz()
 				{
@@ -96,7 +96,7 @@
 					Short = "3",
 					Status = Status.Rented,
 					Width = 35,
-					YachtID = -1
+					YachtID = ""
 				}
 			};
 			return liegeplaetze;
