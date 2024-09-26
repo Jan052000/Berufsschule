@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Liegeplatzverwaltung.Properties;
+using System;
 using System.Collections.Generic;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -51,8 +54,53 @@ namespace Liegeplatzverwaltung.FrontendConnection
 			}
 		}
 
+		private static byte[] Zip(byte[] str)
+		{
+			byte[] compressed;
+
+			using (MemoryStream outStream = new MemoryStream())
+			{
+				using (GZipStream tinyStream = new GZipStream(outStream, CompressionMode.Compress))
+				using (MemoryStream mStream = new MemoryStream(str))
+					mStream.CopyTo(tinyStream);
+
+				compressed = outStream.ToArray();
+			}
+			return compressed;
+		}
+
 		private async Task RecieveRequest(HttpListenerContext ctx)
 		{
+			if (ctx.Request.Url?.AbsolutePath == "/favicon.ico")
+			{
+				HttpListenerResponse resp = ctx.Response;
+				resp.ContentType = "image/x-icon";
+				ctx.Response.StatusCode = 200;
+				resp.AddHeader("Content-Encoding", "gzip");
+				resp.AddHeader("Accept-Ranges", "bytes");
+
+				using MemoryStream ms = new MemoryStream();
+				Resources.Icon3.Save(ms);
+
+				using (MemoryStream compressed = new MemoryStream(Zip(ms.ToArray())))
+				{
+					resp.ContentLength64 = compressed.Length;
+					await compressed.CopyToAsync(resp.OutputStream);
+				}
+
+				await resp.OutputStream.FlushAsync();
+				resp.Close();
+				return;
+			}
+			if (ctx.Request.QueryString.Count == 0)
+			{
+				ctx.Response.ContentType = "text/html";
+				ctx.Response.StatusCode = 200;
+				byte[] page = File.ReadAllBytes("./WebFormular/index.html");
+				ctx.Response.OutputStream.Write(page);
+				ctx.Response.Close();
+				return;
+			}
 			Dictionary<string, string> queryValues = new Dictionary<string, string>();
 			foreach (var key in ctx.Request.QueryString)
 			{
@@ -88,7 +136,7 @@ namespace Liegeplatzverwaltung.FrontendConnection
 				missing = true;
 				WriteErrorResponse(ctx.Response, "Schiff Länge fehlt");
 			}
-			if (!int.TryParse(lengthStr, out int length) || depth < 0)
+			if (!int.TryParse(lengthStr, out int length) || length < 0)
 			{
 				missing = true;
 				WriteErrorResponse(ctx.Response, "Ungültige Länge");
@@ -98,7 +146,7 @@ namespace Liegeplatzverwaltung.FrontendConnection
 				missing = true;
 				WriteErrorResponse(ctx.Response, "Schiff Breite fehlt");
 			}
-			if (!int.TryParse(widthStr, out int width) || depth < 0)
+			if (!int.TryParse(widthStr, out int width) || width < 0)
 			{
 				missing = true;
 				WriteErrorResponse(ctx.Response, "Ungültige Breite");
