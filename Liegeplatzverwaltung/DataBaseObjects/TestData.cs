@@ -8,19 +8,19 @@
 			{
 				new Besitzer()
 				{
-					Address = "Juckt",
-					EMail = "Test@Test.Test",
-					Name = "das an",
-					Phone = "0",
-					SurName = "Was geht sie"
+					//Address = "Juckt",
+					EMail = "mr.wasgehtsie@das.an",
+					//Name = "das an",
+					//Phone = "0",
+					//SurName = "Was geht sie"
 				},
 				new Besitzer()
 				{
-					Address = "faul",
+					//Address = "faul",
 					EMail = "faul",
-					Name = "faul",
-					Phone = "1",
-					SurName = "zu"
+					//Name = "faul",
+					//Phone = "1",
+					//SurName = "zu"
 				}
 			};
 		}
@@ -32,20 +32,22 @@
 				new Yacht()
 				{
 					Depth = 15,
+					Length = 7,
 					Height = 5,
 					ID = "EWWWWWWW",
-					OwnerMail = "t@t.t",
+					OwnerID = 0,
 					ShipType = "U-Boot",
 					Width = 20
 				},
 				new Yacht()
 				{
-					Depth = 55,
-					Height = 150,
-					ID = "KW-OW-KA-PO-W",
-					OwnerMail = "mr.wasgeht@siedas.an",
-					ShipType = "Schlachtkreuzer",
-					Width = 50
+					Depth = 115,
+					Height = 330,
+					ID = "AWW MAN",
+					Length = 1600,
+					OwnerID = 0,
+					ShipType = "Sternenzerstörer",
+					Width = 985
 				}
 			};
 		}
