@@ -8,6 +8,8 @@ namespace Liegeplatzverwaltung
 
 		public string InLinePrimaryKeyString => "PRIMARY KEY";
 
+		public string RequiredString => "NOT NULL";
+
 		private Dictionary<Type, string> TypeSwitch { get; } = new Dictionary<Type, string>()
 		{
 			{ typeof(string), "TEXT" },
@@ -49,5 +51,6 @@ namespace Liegeplatzverwaltung
 				return "TEXT";
 			return TypeSwitch[type];
 		}
+
 	}
 }

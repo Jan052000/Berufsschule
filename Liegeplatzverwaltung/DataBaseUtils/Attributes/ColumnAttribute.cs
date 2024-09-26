@@ -4,9 +4,12 @@
 	public class ColumnAttribute : Attribute
 	{
 		public string ColumnName { get; }
-		public ColumnAttribute(string columnName)
+
+		public bool Required { get; }
+		public ColumnAttribute(string columnName, bool required = false)
 		{
 			ColumnName = columnName;
+			Required = required;
 		}
 	}
 }

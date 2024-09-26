@@ -103,7 +103,8 @@ namespace Liegeplatzverwaltung.DataBaseUtils
 
 			properties.ForEach(prop =>
 			{
-				columns.Add($"{prop.GetCustomAttribute<ColumnAttribute>()!.ColumnName} {typeDialect.GetDBType(prop.PropertyType)}");
+				ColumnAttribute attr = prop.GetCustomAttribute<ColumnAttribute>()!;
+				columns.Add($"{attr.ColumnName} {typeDialect.GetDBType(prop.PropertyType)}{(attr.Required ? " " + typeDialect.RequiredString : "")}");
 			});
 
 			foreignKeys.ForEach(prop =>

@@ -11,6 +11,10 @@
 		/// </summary>
 		string InLinePrimaryKeyString { get; }
 		/// <summary>
+		/// String to add to column when it is required to have a value
+		/// </summary>
+		string RequiredString { get; }
+		/// <summary>
 		/// Gets the string representation for dialect specific DBTypes
 		/// </summary>
 		/// <param name="type"><see cref="Type"/> of c# property to transform</param>
