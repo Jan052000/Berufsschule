@@ -67,6 +67,8 @@ namespace Liegeplatzverwaltung
 						};
 					}
 				}
+				if (property.GetCustomAttribute<DisableInputAtribute>() is not null)
+					tb.Enabled = false;
 
 				pa.Controls.Add(tb);
 				textBoxes.Add(tb);
@@ -146,6 +148,12 @@ namespace Liegeplatzverwaltung
 					return ExtensionMethods.ToNullable<DateTime>(input);
 				throw new NotImplementedException();
 			}
+		}
+
+		[AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+		public class DisableInputAtribute : Attribute
+		{
+
 		}
 	}
 }

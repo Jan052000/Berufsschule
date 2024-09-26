@@ -14,6 +14,7 @@ namespace Liegeplatzverwaltung.DataBaseObjects
 		[ForeignKey("Geparkt", typeof(Yacht), "KennNummer")]
 		[DefaultValue("")]
 		[DataGridColumn("Geparkt", typeof(DataGridViewTextBoxCell))]
+		[AddLiegeplatz.DisableInputAtribute]
 		public string YachtID { get; set; }
 		[Column("Bezeichnung")]
 		[DataGridColumn("Beschreibung", typeof(DataGridViewTextBoxCell))]
