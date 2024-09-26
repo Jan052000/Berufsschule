@@ -39,7 +39,7 @@ namespace Liegeplatzverwaltung
 				case Enum:
 					return $"'{Enum.GetName(value.GetType(), value)}'";
 				default:
-					return value.ToString() ?? "''";
+					return $"'{(value.ToString() ?? "")}'";
 			}
 		}
 
