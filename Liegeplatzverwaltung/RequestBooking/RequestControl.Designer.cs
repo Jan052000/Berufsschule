@@ -132,6 +132,7 @@
 			// nudDepth
 			// 
 			nudDepth.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			nudDepth.Enabled = false;
 			nudDepth.Location = new Point(65, 89);
 			nudDepth.Name = "nudDepth";
 			nudDepth.ReadOnly = true;
@@ -141,6 +142,7 @@
 			// nudWidth
 			// 
 			nudWidth.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			nudWidth.Enabled = false;
 			nudWidth.Location = new Point(65, 118);
 			nudWidth.Name = "nudWidth";
 			nudWidth.ReadOnly = true;
@@ -150,6 +152,7 @@
 			// nudLength
 			// 
 			nudLength.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			nudLength.Enabled = false;
 			nudLength.Location = new Point(65, 147);
 			nudLength.Name = "nudLength";
 			nudLength.ReadOnly = true;
