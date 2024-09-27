@@ -13,6 +13,7 @@ namespace Liegeplatzverwaltung
 		public AddLiegeplatz()
 		{
 			InitializeComponent();
+			this.SetIcon();
 			SetupflpControls();
 		}
 

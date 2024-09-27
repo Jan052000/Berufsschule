@@ -1,5 +1,6 @@
 using Liegeplatzverwaltung.DataBaseObjects;
 using Liegeplatzverwaltung.DataBaseUtils;
+using Liegeplatzverwaltung.Extensions;
 using Liegeplatzverwaltung.FrontendConnection;
 using System.Data.SQLite;
 
@@ -17,6 +18,7 @@ namespace Liegeplatzverwaltung
 		{
 			SetUpDataBase();
 			InitializeComponent();
+			this.SetIcon();
 			DataGridViewUtils.DataGridViewUtils.GenerateColumns(dataGridView1, new Liegeplatz());
 			FillDataGridView();
 			dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
