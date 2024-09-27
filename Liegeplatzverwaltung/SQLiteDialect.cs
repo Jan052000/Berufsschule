@@ -28,6 +28,8 @@ namespace Liegeplatzverwaltung
 				case null:
 					return "null";
 				case string:
+					if ((string)value == "")
+						return "''";
 					return $"'{value}'";
 				case byte[] img:
 					string res = "";
