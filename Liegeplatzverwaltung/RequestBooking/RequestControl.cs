@@ -13,6 +13,8 @@ namespace Liegeplatzverwaltung.RequestBooking
 		public RequestControl(ResponseObject data)
 		{
 			InitializeComponent();
+			laTitle.Text = $"{data.EMail} s' request";
+
 			Data = data;
 			tbIMO.Text = data.ShipUUID;
 			tbMail.Text = data.EMail;
