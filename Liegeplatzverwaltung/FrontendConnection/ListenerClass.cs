@@ -168,9 +168,9 @@ namespace Liegeplatzverwaltung.FrontendConnection
 		{
 			if (resp.StatusCode != (int)HttpStatusCode.BadRequest)
 				resp.StatusCode = (int)HttpStatusCode.BadRequest;
-			if (resp.ContentType != "text/html")
-				resp.ContentType = "text/html";
-			byte[] messageB = Encoding.UTF8.GetBytes(message);
+			if (resp.ContentType != "text/plain")
+				resp.ContentType = $"text/plain; charset={Encoding.UTF8.HeaderName}";
+			byte[] messageB = Encoding.UTF8.GetBytes(message + "\n");
 			resp.OutputStream.Write(messageB, 0, messageB.Count());
 		}
 
