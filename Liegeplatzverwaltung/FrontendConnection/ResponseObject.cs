@@ -1,6 +1,6 @@
 ﻿namespace Liegeplatzverwaltung.FrontendConnection
 {
-	internal class ResponseObject
+	public class ResponseObject
 	{
 		public string EMail { get; }
 		public string Type { get; }
