@@ -33,6 +33,7 @@
 			// 
 			// flpRequestControls
 			// 
+			flpRequestControls.AutoScroll = true;
 			flpRequestControls.Dock = DockStyle.Fill;
 			flpRequestControls.Location = new Point(0, 0);
 			flpRequestControls.Name = "flpRequestControls";
