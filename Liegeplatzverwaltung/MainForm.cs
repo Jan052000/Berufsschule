@@ -171,6 +171,7 @@ namespace Liegeplatzverwaltung
 			{
 				Requests.Remove(respObj);
 				FillDataGridView();
+				btRequests.MessageCount--;
 			};
 			requests.ShowDialog();
 		}
