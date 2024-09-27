@@ -38,6 +38,8 @@ namespace Liegeplatzverwaltung
 
 		private void FillDataGridView()
 		{
+			dataGridView1.CellValueChanged -= dataGridView1_CellValueChanged;
+			dataGridView1.Rows.Clear();
 			using SQLiteConnection conn = new SQLiteConnection(ConnectionString);
 			conn.Open();
 			using (SQLiteCommand cmd = conn.CreateCommand())
@@ -49,6 +51,7 @@ namespace Liegeplatzverwaltung
 					Extensions.DataGridViewUtils.AddItemToDataGridView(dataGridView1, DbBaseClass.Serialize<Liegeplatz>(reader));
 				}
 			}
+			dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
 		}
 
 		private void SetUpDataBase()
