@@ -2,7 +2,9 @@ using Liegeplatzverwaltung.DataBaseObjects;
 using Liegeplatzverwaltung.DataBaseUtils;
 using Liegeplatzverwaltung.Extensions;
 using Liegeplatzverwaltung.FrontendConnection;
+using Liegeplatzverwaltung.RequestBooking;
 using System.Data.SQLite;
+using System.Net;
 
 namespace Liegeplatzverwaltung
 {
@@ -10,7 +12,9 @@ namespace Liegeplatzverwaltung
 	{
 		private const string DBFILENAME = "liegeplaetze.db";
 		private static string DbPath = Path.GetFullPath($"./{DBFILENAME}");
-		private static string ConnectionString = $"Data Source={DbPath}; Version=3";
+		internal static string ConnectionString = $"Data Source={DbPath}; Version=3";
+
+		private Dictionary<ResponseObject, HttpListenerResponse> Requests = new Dictionary<ResponseObject, HttpListenerResponse>();
 
 		private bool IsUpdating { get; set; } = false;
 
@@ -21,13 +25,13 @@ namespace Liegeplatzverwaltung
 			this.SetIcon();
 			DataGridViewUtils.DataGridViewUtils.GenerateColumns(dataGridView1, new Liegeplatz());
 			FillDataGridView();
-			dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
 			new ListenerClass((respObj, resp) =>
 			{
 				if (btRequests.InvokeRequired)
 					btRequests.BeginInvoke(new MethodInvoker(Increment));
 				else
 					Increment();
+				Requests.Add(respObj, resp);
 
 				void Increment()
 				{
@@ -112,10 +116,10 @@ namespace Liegeplatzverwaltung
 			conn.Open();
 			using SQLiteCommand cmd = conn.CreateCommand();
 
-			DataGridViewUtils.DataGridViewUtils.UpdateInfoOnTag(cell, (Liegeplatz)cell.OwningRow.Tag!);
-
 			cmd.CommandText = DbUtils.GetUpdateRowCommand((Liegeplatz)dgv.Rows[e.RowIndex].Tag!, new SQLiteDialect());
 			cmd.ExecuteNonQuery();
+
+			FillDataGridView();
 		}
 
 		private void btRemoveSelected_Click(object sender, EventArgs e)
@@ -157,7 +161,18 @@ namespace Liegeplatzverwaltung
 
 		private void btRequests_Click(object sender, EventArgs e)
 		{
-
+			if (Requests.Count == 0)
+			{
+				MessageBox.Show("Keine neuen Anfragen verfügbar", "Im Listener nichts neues");
+				return;
+			}
+			BookingRequests requests = new BookingRequests(Requests);
+			requests.LiegeplatzAssigned += (respObj) =>
+			{
+				Requests.Remove(respObj);
+				FillDataGridView();
+			};
+			requests.ShowDialog();
 		}
 	}
 }

@@ -180,5 +180,13 @@ namespace Liegeplatzverwaltung.FrontendConnection
 			MainLoopTask?.GetAwaiter().GetResult();
 			Listener?.Close();
 		}
+
+		public static void WriteSuccessResponse(HttpListenerResponse response, string pierName)
+		{
+			response.StatusCode = (int)HttpStatusCode.OK;
+			response.ContentType = $"text/plain; charset={Encoding.UTF8.HeaderName}";
+			response.OutputStream.Write(Encoding.UTF8.GetBytes($"Sie liegen an Pier \"{pierName}\""));
+			response.Close();
+		}
 	}
 }
