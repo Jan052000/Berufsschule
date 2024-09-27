@@ -1,4 +1,6 @@
-﻿namespace Liegeplatzverwaltung.Extensions
+﻿using System.ComponentModel;
+
+namespace Liegeplatzverwaltung.Extensions
 {
 	internal class NotifyButton : Button
 	{
@@ -16,6 +18,21 @@
 			}
 		}
 
+		private Color messageCircleColor { get; set; } = Color.Red;
+		[DefaultValue(typeof(Color), "Red")]
+		public Color MessageCircleColor
+		{
+			get => messageCircleColor;
+			set
+			{
+				if (messageCircleColor != value)
+				{
+					messageCircleColor = value;
+					Invalidate();
+				}
+			}
+		}
+
 		protected override void OnPaint(PaintEventArgs pevent)
 		{
 			base.OnPaint(pevent);
@@ -24,7 +41,7 @@
 			if (Width < 2 * circleWidth || Height < circleWidth)
 				return;
 
-			using SolidBrush red = new SolidBrush(Color.Red);
+			using SolidBrush red = new SolidBrush(MessageCircleColor);
 			Rectangle bounds = pevent.ClipRectangle;
 			Rectangle circleBounds = new Rectangle(bounds.Width - circleWidth - 2, 1, circleWidth, circleWidth);
 
