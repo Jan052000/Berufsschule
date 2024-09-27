@@ -60,6 +60,17 @@ namespace Liegeplatzverwaltung.DataGridViewUtils
 					using MemoryStream ms = new MemoryStream(ImageCompression.Decompress((byte[])prop.GetValue(item)));
 					dataGridView.Rows[index].Cells[GetColumnName(attr.DisplayName)].Value = ms.Length > 0 ? Image.FromStream(ms) : null;
 				}
+				else if (attr.CellType == typeof(DataGridViewComboBoxCell))
+				{
+					if (prop.GetValue(item) is null)
+						throw new NotImplementedException("Null as combo box option");
+					if (!prop.PropertyType.IsEnum)
+						throw new NotImplementedException("Combo box cell that does not have an enum as data source");
+					DataGridViewComboBoxCell cell = (DataGridViewComboBoxCell)row.Cells[GetColumnName(attr.DisplayName)];
+					cell.Items.Clear();
+					Enum.GetNames(prop.PropertyType).ToList().ForEach(name => cell.Items.Add(name));
+					cell.Value = Enum.GetName(prop.PropertyType, prop.GetValue(item)!);
+				}
 				else
 					dataGridView.Rows[index].Cells[GetColumnName(attr.DisplayName)].Value = prop.GetValue(item);
 				dataGridView.Rows[index].Tag = item;
