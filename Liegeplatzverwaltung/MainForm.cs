@@ -117,6 +117,8 @@ namespace Liegeplatzverwaltung
 
 		private void btRemoveSelected_Click(object sender, EventArgs e)
 		{
+			if (dataGridView1.SelectedRows.Count == 0)
+				return;
 			if (MessageBox.Show($"Delete {dataGridView1.SelectedRows.Count} rows?", "Delete seleted rows?", MessageBoxButtons.YesNo) != DialogResult.Yes)
 				return;
 
