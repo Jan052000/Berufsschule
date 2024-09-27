@@ -1,13 +1,7 @@
 ﻿using Liegeplatzverwaltung.Properties;
-using System;
-using System.Collections.Generic;
 using System.IO.Compression;
-using System.Linq;
 using System.Net;
-using System.Net.Sockets;
-using System.Resources;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Liegeplatzverwaltung.FrontendConnection
 {

@@ -1,15 +1,9 @@
-﻿using System;
-using System.Reflection;
-using System.Collections.Generic;
+﻿using System.Reflection;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Liegeplatzverwaltung.DataBaseUtils.Attributes;
 using Liegeplatzverwaltung.DataBaseObjects;
 using Liegeplatzverwaltung.DataBaseUtils;
 using Liegeplatzverwaltung.FrontendConnection;
-using System.Diagnostics;
 
 namespace Liegeplatzverwaltung.Extensions
 {
