@@ -33,7 +33,7 @@
 				{
 					Depth = 15,
 					Length = 7,
-					Height = 5,
+					//Height = 5,
 					ID = "EWWWWWWW",
 					OwnerID = 0,
 					ShipType = "U-Boot",
@@ -42,7 +42,7 @@
 				new Yacht()
 				{
 					Depth = 115,
-					Height = 330,
+					//Height = 330,
 					ID = "AWW MAN",
 					Length = 1600,
 					OwnerID = 0,
@@ -60,7 +60,7 @@
 				{
 					Depth = 5,
 					Description = "Pier 0",
-					Height = 900,
+					Length = 900,
 					Image = [],
 					Short = "0",
 					Status = Status.Open,
@@ -71,7 +71,7 @@
 				{
 					Depth = 25,
 					Description = "Pier 1",
-					Height = 30,
+					Length = 30,
 					Image = [],
 					Short = "1",
 					Status = Status.Closed,
@@ -82,7 +82,7 @@
 				{
 					Depth = 55,
 					Description = "Pier 2",
-					Height = 150,
+					Length = 150,
 					Image = [],
 					Short = "1",
 					Status = Status.Occupied,
@@ -93,7 +93,7 @@
 				{
 					Depth = 5,
 					Description = "Pier 3",
-					Height = 900,
+					Length = 900,
 					Image = [],
 					Short = "3",
 					Status = Status.Rented,

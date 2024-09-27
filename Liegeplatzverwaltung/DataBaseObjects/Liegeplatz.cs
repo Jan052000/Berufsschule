@@ -12,10 +12,9 @@ namespace Liegeplatzverwaltung.DataBaseObjects
 		[PrimaryKey("ID", AutoIncrement = true)]
 		public long ID { get; private set; }
 		[ForeignKey("Geparkt", typeof(Yacht), "KennNummer")]
-		[DefaultValue("")]
 		[DataGridColumn("Geparkt", typeof(DataGridViewTextBoxCell))]
 		[AddLiegeplatz.DisableInputAtribute]
-		public string YachtID { get; set; }
+		public string? YachtID { get; set; }
 		[Column("Bezeichnung", true)]
 		[DataGridColumn("Beschreibung", typeof(DataGridViewTextBoxCell))]
 		public string? Description { get; set; }
@@ -27,7 +26,7 @@ namespace Liegeplatzverwaltung.DataBaseObjects
 		public long? Width { get; set; }
 		[Column("Laenge")]
 		[DataGridColumn("Länge", typeof(DataGridViewTextBoxCell))]
-		public long? Height { get; set; }
+		public long? Length { get; set; }
 		[Column("Tiefe")]
 		[DataGridColumn("Tiefe", typeof(DataGridViewTextBoxCell))]
 		public long? Depth { get; set; }

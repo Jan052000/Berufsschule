@@ -12,8 +12,8 @@ namespace Liegeplatzverwaltung.DataBaseObjects
 		public long OwnerID { get; set; }
 		[Column("Breite")]
 		public long? Width { get; set; }
-		[Column("Laenge")]
-		public long? Height { get; set; }
+		//[Column("Höhe")]
+		//public long? Height { get; set; }
 		[Column("Tiefe")]
 		public long? Depth { get; set; }
 		[Column("Länge")]
