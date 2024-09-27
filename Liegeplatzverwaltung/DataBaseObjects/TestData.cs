@@ -59,7 +59,7 @@
 				new Liegeplatz()
 				{
 					Depth = 5,
-					Description = "Pier 0",
+					Name = "Pier 0",
 					Length = 900,
 					Image = [],
 					Short = "0",
@@ -70,7 +70,7 @@
 				new Liegeplatz()
 				{
 					Depth = 25,
-					Description = "Pier 1",
+					Name = "Pier 1",
 					Length = 30,
 					Image = [],
 					Short = "1",
@@ -81,7 +81,7 @@
 				new Liegeplatz()
 				{
 					Depth = 55,
-					Description = "Pier 2",
+					Name = "Pier 2",
 					Length = 150,
 					Image = [],
 					Short = "1",
@@ -92,7 +92,7 @@
 				new Liegeplatz()
 				{
 					Depth = 5,
-					Description = "Pier 3",
+					Name = "Pier 3",
 					Length = 900,
 					Image = [],
 					Short = "3",

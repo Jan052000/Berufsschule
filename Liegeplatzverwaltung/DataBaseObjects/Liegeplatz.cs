@@ -15,9 +15,9 @@ namespace Liegeplatzverwaltung.DataBaseObjects
 		[DataGridColumn("Geparkt", typeof(DataGridViewTextBoxCell))]
 		[AddLiegeplatz.DisableInputAtribute]
 		public string? YachtID { get; set; }
-		[Column("Bezeichnung", true)]
-		[DataGridColumn("Beschreibung", typeof(DataGridViewTextBoxCell))]
-		public string? Description { get; set; }
+		[Column("PierName", true)]
+		[DataGridColumn("Name", typeof(DataGridViewTextBoxCell))]
+		public string Name { get; set; }
 		[Column("Kürzel")]
 		[DataGridColumn("Kürzel", typeof(DataGridViewTextBoxCell))]
 		public string? Short { get; set; }
