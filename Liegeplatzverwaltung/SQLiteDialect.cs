@@ -42,6 +42,9 @@ namespace Liegeplatzverwaltung
 					return res;
 				case Enum:
 					return $"'{Enum.GetName(value.GetType(), value)}'";
+				case int:
+				case long:
+					return value.ToString();
 				default:
 					return $"'{(value.ToString() ?? "")}'";
 			}
