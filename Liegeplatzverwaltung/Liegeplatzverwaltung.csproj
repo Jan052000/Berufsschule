@@ -6,7 +6,12 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>habilidad.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="habilidad.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Data.SQLite" Version="1.0.118" />

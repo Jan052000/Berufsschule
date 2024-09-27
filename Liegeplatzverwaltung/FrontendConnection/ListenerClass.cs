@@ -80,7 +80,7 @@ namespace Liegeplatzverwaltung.FrontendConnection
 				resp.AddHeader("Accept-Ranges", "bytes");
 
 				using MemoryStream ms = new MemoryStream();
-				Resources.Icon3.Save(ms);
+				Resources.habilidad.Save(ms);
 
 				using (MemoryStream compressed = new MemoryStream(Zip(ms.ToArray())))
 				{

@@ -63,9 +63,9 @@ namespace Liegeplatzverwaltung.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Icon ähnlich wie (Symbol).
         /// </summary>
-        internal static System.Drawing.Icon Icon3 {
+        internal static System.Drawing.Icon habilidad {
             get {
-                object obj = ResourceManager.GetObject("Icon3", resourceCulture);
+                object obj = ResourceManager.GetObject("habilidad", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
