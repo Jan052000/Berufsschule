@@ -113,6 +113,14 @@ namespace Liegeplatzverwaltung
 				IsUpdating = false;
 				return;
 			}
+
+			Liegeplatz tag = (Liegeplatz)dgv.Rows[e.RowIndex].Tag!;
+			System.Reflection.PropertyInfo toChange = (System.Reflection.PropertyInfo)dataGridView1.Columns[e.ColumnIndex].Tag!;
+			if (toChange.PropertyType.IsEnum)
+				toChange.SetValue(tag, Enum.Parse(toChange.PropertyType, cell.Value.ToString()!));
+			else
+				toChange.SetValue(tag, Convert.ChangeType(cell.Value, toChange.PropertyType));
+
 			using SQLiteConnection conn = new SQLiteConnection(ConnectionString);
 			conn.Open();
 			using SQLiteCommand cmd = conn.CreateCommand();
@@ -164,7 +172,7 @@ namespace Liegeplatzverwaltung
 		{
 			if (Requests.Count == 0)
 			{
-				MessageBox.Show("Keine neuen Anfragen verfï¿½gbar", "Im Listener nichts neues");
+				MessageBox.Show("Keine neuen Anfragen verfügbar", "Im Listener nichts neues");
 				return;
 			}
 			BookingRequests requests = new BookingRequests(Requests);
