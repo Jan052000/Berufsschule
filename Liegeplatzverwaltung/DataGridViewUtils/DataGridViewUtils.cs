@@ -36,6 +36,7 @@ namespace Liegeplatzverwaltung.DataGridViewUtils
 				int index = dataGridView.Columns.Add(col);
 				if (column.Readonly)
 					dataGridView.Columns[index].ReadOnly = true;
+				col.Tag = property;
 			}
 		}
 
