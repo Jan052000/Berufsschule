@@ -23,6 +23,7 @@ namespace Liegeplatzverwaltung
 			SetUpDataBase();
 			InitializeComponent();
 			this.SetIcon();
+			dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 			DataGridViewUtils.DataGridViewUtils.GenerateColumns(dataGridView1, new Liegeplatz());
 			FillDataGridView();
 			new ListenerClass((respObj, resp) =>
@@ -163,7 +164,7 @@ namespace Liegeplatzverwaltung
 		{
 			if (Requests.Count == 0)
 			{
-				MessageBox.Show("Keine neuen Anfragen verfügbar", "Im Listener nichts neues");
+				MessageBox.Show("Keine neuen Anfragen verfï¿½gbar", "Im Listener nichts neues");
 				return;
 			}
 			BookingRequests requests = new BookingRequests(Requests);
