@@ -45,6 +45,9 @@ namespace Liegeplatzverwaltung.Extensions
 			Rectangle bounds = pevent.ClipRectangle;
 			Rectangle circleBounds = new Rectangle(bounds.Width - circleWidth - 2, 1, circleWidth, circleWidth);
 
+			if (MessageCount == 0)
+				return;
+
 			pevent.Graphics.FillEllipse(red, circleBounds);
 			TextRenderer.DrawText(pevent.Graphics, MessageCount.ToString(), new Font(Font.FontFamily, 9), circleBounds, ForeColor);
 		}
