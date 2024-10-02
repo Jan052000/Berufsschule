@@ -112,6 +112,11 @@ namespace Liegeplatzverwaltung
 					{
 						if (propertyInfo.PropertyType == typeof(byte[]))
 						{
+							if (string.IsNullOrWhiteSpace(textBox.Text))
+							{
+								propertyInfo.SetValue(Result, new byte[0]);
+								continue;
+							}
 							Image img = Image.FromFile(textBox.Text);
 							using MemoryStream ms = new MemoryStream();
 							img.Save(ms, img.RawFormat);
