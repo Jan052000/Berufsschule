@@ -110,7 +110,7 @@ namespace Liegeplatzverwaltung.Extensions
 			//Update liegeplatz yacht
 			using (SQLiteCommand cmd = conn.CreateCommand())
 			{
-				cmd.CommandText = $"UPDATE {DbUtils.GetTableName<Liegeplatz>()} SET {GetColumnName<Liegeplatz>("YachtID")}='{yacht.ShipUUID}' WHERE {GetColumnName<Liegeplatz>("ID")}={liegeplatzID}";
+				cmd.CommandText = $"UPDATE {DbUtils.GetTableName<Liegeplatz>()} SET {GetColumnName<Liegeplatz>("YachtID")}='{yacht.ShipUUID}', {GetColumnName<Liegeplatz>("Status")}='{Status.Rented.ToString()}' WHERE {GetColumnName<Liegeplatz>("ID")}={liegeplatzID}";
 				cmd.ExecuteNonQuery();
 			}
 		}
