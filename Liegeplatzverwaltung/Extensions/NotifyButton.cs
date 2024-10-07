@@ -33,6 +33,21 @@ namespace Liegeplatzverwaltung.Extensions
 			}
 		}
 
+		private Color messageCountColor { get; set; } = Color.Black;
+		[DefaultValue(typeof(Color), "Black")]
+		public Color MessageCountColor
+		{
+			get => messageCountColor;
+			set
+			{
+				if (messageCountColor != value)
+				{
+					messageCountColor = value;
+					Invalidate();
+				}
+			}
+		}
+
 		protected override void OnPaint(PaintEventArgs pevent)
 		{
 			base.OnPaint(pevent);
