@@ -15,6 +15,7 @@ namespace Liegeplatzverwaltung
 			InitializeComponent();
 			this.SetIcon();
 			SetupflpControls();
+			this.SetTheme();
 		}
 
 		private void SetupflpControls()

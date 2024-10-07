@@ -26,6 +26,7 @@ namespace Liegeplatzverwaltung
 			dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 			DataGridViewUtils.DataGridViewUtils.GenerateColumns(dataGridView1, new Liegeplatz());
 			FillDataGridView();
+			this.SetTheme();
 			new ListenerClass((respObj, resp) =>
 			{
 				if (btRequests.InvokeRequired)

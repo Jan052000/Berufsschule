@@ -25,6 +25,7 @@ namespace Liegeplatzverwaltung.RequestBooking
 				};
 				flpRequestControls.Controls.Add(request);
 			}
+			this.SetTheme();
 		}
 	}
 }

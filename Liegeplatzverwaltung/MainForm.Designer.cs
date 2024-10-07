@@ -74,6 +74,7 @@
 			btRequests.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 			btRequests.Font = new Font("Segoe UI", 12F);
 			btRequests.Location = new Point(713, 408);
+			btRequests.MessageCount = 0;
 			btRequests.Name = "btRequests";
 			btRequests.Size = new Size(75, 30);
 			btRequests.TabIndex = 4;
@@ -90,6 +91,7 @@
 			Controls.Add(dataGridView1);
 			Controls.Add(btRemoveSelected);
 			Controls.Add(btAddNew);
+			MinimumSize = new Size(400, 200);
 			Name = "MainForm";
 			Text = "Liegeplatzverwaltung";
 			((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
