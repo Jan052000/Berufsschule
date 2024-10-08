@@ -39,6 +39,10 @@ namespace Liegeplatzverwaltung.Extensions
 					p.ForeColor = Color.White;
 					p.BackColor = Color.FromArgb(255, 137, 137, 137);
 					break;
+				case DataGridView dgv:
+					dgv.BackColor = Color.FromArgb(255, 106, 106, 106);
+					dgv.ForeColor = Color.Black;
+					break;
 				default:
 					control.ForeColor = Color.White;
 					control.BackColor = Color.FromArgb(255, 106, 106, 106);
