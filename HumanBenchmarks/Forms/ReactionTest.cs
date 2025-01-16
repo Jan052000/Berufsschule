@@ -32,7 +32,7 @@ namespace HumanBenchmarks.Forms
 			{
 				string text;
 				if (FailStart)
-					text = "You clicked too soon.";
+					text = "You clicked too soon,\n click again to start.";
 				else
 					text = $"Click here to start, wait for green and then click again.\n{(Result != null ? Result + "ms" : "")}";
 				TextRenderer.DrawText(e.Graphics, text, c.Font, c.Bounds, c.ForeColor);
@@ -62,7 +62,10 @@ namespace HumanBenchmarks.Forms
 				if (!TimerElapsed)
 					FailStart = true;
 				else if (Result.HasValue)
+				{
 					Results.Add(Result.Value);
+					tbAvg.Text = $"{Math.Round(Results.Average(), 3)}ms";
+				}
 				WaitForStart = true;
 				ShowGreen = false;
 				TimerElapsed = false;
