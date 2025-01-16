@@ -3,6 +3,7 @@
 	internal partial class AimTest : Form
 	{
 		private const int TARGETSIZE = 25;
+		private const int TARGETRINGSPACING = 15;
 		private const int SPAWNDELAY = 100;
 
 		private int _Clicks = 0;
@@ -118,8 +119,18 @@
 			}
 			if (TargetBounds == null)
 				return;
+
 			using Pen line = new Pen(Color.Black, 1);
-			e.Graphics.DrawEllipse(line, new Rectangle(TargetBounds.X, TargetBounds.Y, TargetBounds.Height, TargetBounds.Width));
+
+			for (int i = 0; i < TARGETSIZE; i += TARGETRINGSPACING)
+			{
+				int x1 = TargetBounds.X + i / 2;
+				int y1 = TargetBounds.Y + i / 2;
+
+				e.Graphics.DrawEllipse(line, x1, y1, TARGETSIZE - i, TARGETSIZE - i);
+			}
+			e.Graphics.DrawLine(line, TargetBounds.X + TargetBounds.Width / 2, TargetBounds.Y, TargetBounds.X + TargetBounds.Width / 2, TargetBounds.Y + TargetBounds.Height);
+			e.Graphics.DrawLine(line, TargetBounds.X, TargetBounds.Y + TargetBounds.Height / 2, TargetBounds.X + TargetBounds.Width, TargetBounds.Y + TargetBounds.Height / 2);
 		}
 	}
 }
