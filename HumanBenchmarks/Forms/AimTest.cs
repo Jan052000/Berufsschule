@@ -1,4 +1,6 @@
-﻿namespace HumanBenchmarks.Forms
+﻿using System.Diagnostics;
+
+namespace HumanBenchmarks.Forms
 {
 	internal partial class AimTest : Form
 	{
@@ -10,14 +12,13 @@
 		private int _Hits = 0;
 		private bool GameStarted = false;
 
-		private long? TimeStamp = null;
-
 		public int Clicks => _Clicks;
 		public int Hits => _Hits;
 		public double Accuracy => _Hits / (double)_Clicks;
 		public List<long> TimesInTicks { get; } = new List<long>();
 
 		private Target? TargetBounds { get; set; } = null;
+		private Stopwatch? StopWatch { get; set; }
 
 		private class Target
 		{
@@ -95,10 +96,11 @@
 		{
 			return Task.Run(() =>
 			{
-				if (TimeStamp.HasValue)
+				if (StopWatch != null)
 				{
-					TimesInTicks.Add(DateTime.Now.Ticks - TimeStamp.Value);
-					WithInvoke(tbSpeed, () => tbSpeed.Text = $"{Convert.ToInt32(TimesInTicks.Average() / 10000)}ms");
+					StopWatch.Stop();
+					TimesInTicks.Add(StopWatch.ElapsedTicks);
+					WithInvoke(tbSpeed, () => tbSpeed.Text = $"{Math.Round(TimesInTicks.Average() / 10000)}ms");
 				}
 				Random r = new Random();
 				int x = r.Next(0, paGame.Width - TARGETSIZE);
@@ -106,7 +108,7 @@
 				TargetBounds = new Target(x, y);
 				WithInvoke(paGame, paGame.Invalidate);
 				WithInvoke(nudTargets, () => nudTargets.Value++);
-				TimeStamp = DateTime.Now.Ticks;
+				StopWatch = Stopwatch.StartNew();
 			});
 		}
 
