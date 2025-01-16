@@ -188,7 +188,7 @@
 		}
 	}
 
-	public class TestTableLayoutPanel : TableLayoutPanel
+	internal class TestTableLayoutPanel : TableLayoutPanel
 	{
 		public TestTableLayoutPanel()
 		{
