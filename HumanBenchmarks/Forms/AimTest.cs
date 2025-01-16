@@ -116,10 +116,10 @@
 				TextRenderer.DrawText(e.Graphics, "Click to Start", paGame.Font, paGame.Bounds, paGame.ForeColor);
 				return;
 			}
-			if (TargetBounds is not Target bounds)
+			if (TargetBounds == null)
 				return;
 			using Pen line = new Pen(Color.Black, 1);
-			e.Graphics.DrawEllipse(line, new Rectangle(bounds.X, bounds.Y, bounds.Height, bounds.Width));
+			e.Graphics.DrawEllipse(line, new Rectangle(TargetBounds.X, TargetBounds.Y, TargetBounds.Height, TargetBounds.Width));
 		}
 	}
 }
