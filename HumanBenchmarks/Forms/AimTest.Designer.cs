@@ -49,6 +49,7 @@
 			// 
 			// paButtons
 			// 
+			paButtons.AutoScroll = true;
 			paButtons.Controls.Add(tbSpeed);
 			paButtons.Controls.Add(laSpeed);
 			paButtons.Controls.Add(nudAccuracy);
