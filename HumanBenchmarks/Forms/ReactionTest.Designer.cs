@@ -46,6 +46,7 @@
 			// 
 			// paGameArea
 			// 
+			paGameArea.BackColor = SystemColors.ControlDark;
 			paGameArea.Dock = DockStyle.Fill;
 			paGameArea.Location = new Point(0, 0);
 			paGameArea.Name = "paGameArea";
@@ -63,6 +64,7 @@
 			Controls.Add(paGameArea);
 			Controls.Add(rtbInstructions);
 			Name = "ReactionTest";
+			StartPosition = FormStartPosition.CenterParent;
 			Text = "ReactionTest";
 			ResumeLayout(false);
 		}

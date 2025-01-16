@@ -178,6 +178,7 @@
 			Controls.Add(paGame);
 			Controls.Add(paButtons);
 			Name = "AimTest";
+			StartPosition = FormStartPosition.CenterParent;
 			Text = "AimTest";
 			paButtons.ResumeLayout(false);
 			paButtons.PerformLayout();

@@ -29,12 +29,12 @@
 		private void InitializeComponent()
 		{
 			paBottom = new Panel();
+			laRound = new Label();
 			btRegenField = new Button();
 			nudSize = new NumericUpDown();
 			btStart = new Button();
 			nudRound = new NumericUpDown();
 			tlpGame = new TestTableLayoutPanel();
-			laRound = new Label();
 			paBottom.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)nudSize).BeginInit();
 			((System.ComponentModel.ISupportInitialize)nudRound).BeginInit();
@@ -52,6 +52,15 @@
 			paBottom.Name = "paBottom";
 			paBottom.Size = new Size(800, 57);
 			paBottom.TabIndex = 0;
+			// 
+			// laRound
+			// 
+			laRound.AutoSize = true;
+			laRound.Location = new Point(12, 26);
+			laRound.Name = "laRound";
+			laRound.Size = new Size(42, 15);
+			laRound.TabIndex = 4;
+			laRound.Text = "Round";
 			// 
 			// btRegenField
 			// 
@@ -110,15 +119,6 @@
 			tlpGame.Size = new Size(800, 393);
 			tlpGame.TabIndex = 1;
 			// 
-			// laRound
-			// 
-			laRound.AutoSize = true;
-			laRound.Location = new Point(12, 26);
-			laRound.Name = "laRound";
-			laRound.Size = new Size(42, 15);
-			laRound.TabIndex = 4;
-			laRound.Text = "Round";
-			// 
 			// SimonSaysGame
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
@@ -127,6 +127,7 @@
 			Controls.Add(tlpGame);
 			Controls.Add(paBottom);
 			Name = "SimonSaysGame";
+			StartPosition = FormStartPosition.CenterParent;
 			Text = "SimonSays";
 			paBottom.ResumeLayout(false);
 			paBottom.PerformLayout();
