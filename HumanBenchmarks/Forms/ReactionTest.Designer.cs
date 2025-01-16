@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
 			rtbInstructions = new RichTextBox();
-			paGameArea = new Panel();
+			paGameArea = new GamePanel();
 			SuspendLayout();
 			// 
 			// rtbInstructions
@@ -54,7 +54,6 @@
 			paGameArea.TabIndex = 1;
 			paGameArea.Click += paGameArea_Click;
 			paGameArea.Paint += paGameArea_Paint;
-			paGameArea.Resize += paGameArea_Resize;
 			// 
 			// ReactionTest
 			// 
@@ -72,6 +71,6 @@
 		#endregion
 
 		private RichTextBox rtbInstructions;
-		private Panel paGameArea;
+		private GamePanel paGameArea;
 	}
 }

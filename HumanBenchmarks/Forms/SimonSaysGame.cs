@@ -1,6 +1,6 @@
 ﻿namespace HumanBenchmarks.Forms
 {
-	public partial class SimonSaysGame : Form
+	internal partial class SimonSaysGame : Form
 	{
 		private int NextIndex = -1;
 		private bool GameStarted = false;

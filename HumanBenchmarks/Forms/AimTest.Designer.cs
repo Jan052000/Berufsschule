@@ -39,7 +39,7 @@
 			laClicks = new Label();
 			nudTargets = new NumericUpDown();
 			laTargets = new Label();
-			paGame = new Panel();
+			paGame = new GamePanel();
 			paButtons.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)nudAccuracy).BeginInit();
 			((System.ComponentModel.ISupportInitialize)nudHits).BeginInit();
@@ -191,7 +191,7 @@
 
 		#endregion
 		private Panel paButtons;
-		private Panel paGame;
+		private GamePanel paGame;
 		private NumericUpDown nudTargets;
 		private Label laTargets;
 		private Label laClicks;

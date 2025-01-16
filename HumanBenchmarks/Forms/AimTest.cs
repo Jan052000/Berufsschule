@@ -1,6 +1,6 @@
 ﻿namespace HumanBenchmarks.Forms
 {
-	public partial class AimTest : Form
+	internal partial class AimTest : Form
 	{
 		private const int TARGETSIZE = 25;
 		private const int SPAWNDELAY = 100;

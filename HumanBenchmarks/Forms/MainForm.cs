@@ -1,6 +1,6 @@
 ﻿namespace HumanBenchmarks.Forms
 {
-	public partial class MainForm : Form
+	internal partial class MainForm : Form
 	{
 		public MainForm()
 		{
