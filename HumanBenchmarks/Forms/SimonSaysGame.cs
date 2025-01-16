@@ -8,6 +8,7 @@
 		private List<Point> GameSteps { get; } = new List<Point>();
 		private Dictionary<Point, Button> Buttons { get; } = new Dictionary<Point, Button>();
 		private int GameSize { get; set; } = -1;
+		private int InitialGameSize { get; set; } = 3;
 		private int FlashIntervalMS => 1000;
 		private Color FlashColor => Color.Blue;
 		private Color ButtonBackColor => SystemColors.ControlDark;
@@ -16,7 +17,8 @@
 		public SimonSaysGame()
 		{
 			InitializeComponent();
-			SetupGame(3);
+			SetupGame(InitialGameSize);
+			nudSize.Value = InitialGameSize;
 		}
 
 		private void Reset()
