@@ -153,8 +153,9 @@
 			Interlocked.Exchange(ref NextIndex, -1);
 			return Task.Run(async () =>
 			{
-				foreach (Point p in GameSteps)
+				for (int i = 0; i < GameSteps.Count; i++)
 				{
+					Point p = GameSteps[i];
 					Button b = Buttons[p];
 					if (b.InvokeRequired)
 						b.Invoke(() => b.BackColor = FlashColor);
@@ -165,7 +166,8 @@
 						b.Invoke(() => b.BackColor = ButtonBackColor);
 					else
 						b.BackColor = ButtonBackColor;
-					await Task.Delay(500);
+					if (i != GameSteps.Count - 1)
+						await Task.Delay(500);
 				}
 				if (nudRound.InvokeRequired)
 					nudRound.Invoke(() => nudRound.Value++);
