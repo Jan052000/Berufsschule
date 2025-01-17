@@ -29,6 +29,8 @@
 		private void InitializeComponent()
 		{
 			paButtons = new Panel();
+			nudAvgDistance = new NumericUpDown();
+			laAvgDistance = new Label();
 			tbSpeed = new TextBox();
 			laSpeed = new Label();
 			nudAccuracy = new NumericUpDown();
@@ -41,6 +43,7 @@
 			laTargets = new Label();
 			paGame = new GamePanel();
 			paButtons.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)nudAvgDistance).BeginInit();
 			((System.ComponentModel.ISupportInitialize)nudAccuracy).BeginInit();
 			((System.ComponentModel.ISupportInitialize)nudHits).BeginInit();
 			((System.ComponentModel.ISupportInitialize)nudClicks).BeginInit();
@@ -50,6 +53,8 @@
 			// paButtons
 			// 
 			paButtons.AutoScroll = true;
+			paButtons.Controls.Add(nudAvgDistance);
+			paButtons.Controls.Add(laAvgDistance);
 			paButtons.Controls.Add(tbSpeed);
 			paButtons.Controls.Add(laSpeed);
 			paButtons.Controls.Add(nudAccuracy);
@@ -63,12 +68,30 @@
 			paButtons.Dock = DockStyle.Bottom;
 			paButtons.Location = new Point(0, 409);
 			paButtons.Name = "paButtons";
-			paButtons.Size = new Size(800, 41);
+			paButtons.Size = new Size(977, 41);
 			paButtons.TabIndex = 0;
+			// 
+			// nudAvgDistance
+			// 
+			nudAvgDistance.Enabled = false;
+			nudAvgDistance.Location = new Point(804, 6);
+			nudAvgDistance.Name = "nudAvgDistance";
+			nudAvgDistance.Size = new Size(120, 23);
+			nudAvgDistance.TabIndex = 12;
+			// 
+			// laAvgDistance
+			// 
+			laAvgDistance.AutoSize = true;
+			laAvgDistance.Location = new Point(722, 10);
+			laAvgDistance.Name = "laAvgDistance";
+			laAvgDistance.Size = new Size(76, 15);
+			laAvgDistance.TabIndex = 11;
+			laAvgDistance.Text = "Avg Distance";
 			// 
 			// tbSpeed
 			// 
-			tbSpeed.Location = new Point(621, 7);
+			tbSpeed.Enabled = false;
+			tbSpeed.Location = new Point(616, 7);
 			tbSpeed.Name = "tbSpeed";
 			tbSpeed.ReadOnly = true;
 			tbSpeed.Size = new Size(100, 23);
@@ -78,7 +101,7 @@
 			// laSpeed
 			// 
 			laSpeed.AutoSize = true;
-			laSpeed.Location = new Point(552, 10);
+			laSpeed.Location = new Point(547, 10);
 			laSpeed.Name = "laSpeed";
 			laSpeed.Size = new Size(63, 15);
 			laSpeed.TabIndex = 9;
@@ -88,7 +111,7 @@
 			// 
 			nudAccuracy.DecimalPlaces = 2;
 			nudAccuracy.Enabled = false;
-			nudAccuracy.Location = new Point(493, 6);
+			nudAccuracy.Location = new Point(488, 6);
 			nudAccuracy.Name = "nudAccuracy";
 			nudAccuracy.Size = new Size(53, 23);
 			nudAccuracy.TabIndex = 8;
@@ -97,7 +120,7 @@
 			// laAccuracy
 			// 
 			laAccuracy.AutoSize = true;
-			laAccuracy.Location = new Point(431, 10);
+			laAccuracy.Location = new Point(426, 10);
 			laAccuracy.Name = "laAccuracy";
 			laAccuracy.Size = new Size(56, 15);
 			laAccuracy.TabIndex = 7;
@@ -106,7 +129,7 @@
 			// nudHits
 			// 
 			nudHits.Enabled = false;
-			nudHits.Location = new Point(329, 6);
+			nudHits.Location = new Point(324, 6);
 			nudHits.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
 			nudHits.Name = "nudHits";
 			nudHits.Size = new Size(96, 23);
@@ -116,7 +139,7 @@
 			// laHits
 			// 
 			laHits.AutoSize = true;
-			laHits.Location = new Point(295, 10);
+			laHits.Location = new Point(290, 10);
 			laHits.Name = "laHits";
 			laHits.Size = new Size(28, 15);
 			laHits.TabIndex = 5;
@@ -125,7 +148,7 @@
 			// nudClicks
 			// 
 			nudClicks.Enabled = false;
-			nudClicks.Location = new Point(193, 6);
+			nudClicks.Location = new Point(188, 6);
 			nudClicks.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
 			nudClicks.Name = "nudClicks";
 			nudClicks.Size = new Size(96, 23);
@@ -135,7 +158,7 @@
 			// laClicks
 			// 
 			laClicks.AutoSize = true;
-			laClicks.Location = new Point(149, 10);
+			laClicks.Location = new Point(144, 10);
 			laClicks.Name = "laClicks";
 			laClicks.Size = new Size(38, 15);
 			laClicks.TabIndex = 3;
@@ -144,7 +167,7 @@
 			// nudTargets
 			// 
 			nudTargets.Enabled = false;
-			nudTargets.Location = new Point(62, 6);
+			nudTargets.Location = new Point(57, 6);
 			nudTargets.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
 			nudTargets.Name = "nudTargets";
 			nudTargets.Size = new Size(81, 23);
@@ -153,7 +176,7 @@
 			// laTargets
 			// 
 			laTargets.AutoSize = true;
-			laTargets.Location = new Point(12, 10);
+			laTargets.Location = new Point(7, 10);
 			laTargets.Name = "laTargets";
 			laTargets.Size = new Size(44, 15);
 			laTargets.TabIndex = 1;
@@ -165,7 +188,7 @@
 			paGame.Dock = DockStyle.Fill;
 			paGame.Location = new Point(0, 0);
 			paGame.Name = "paGame";
-			paGame.Size = new Size(800, 409);
+			paGame.Size = new Size(977, 409);
 			paGame.TabIndex = 1;
 			paGame.Click += paGame_Click;
 			paGame.Paint += paGame_Paint;
@@ -175,7 +198,7 @@
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(800, 450);
+			ClientSize = new Size(977, 450);
 			Controls.Add(paGame);
 			Controls.Add(paButtons);
 			Name = "AimTest";
@@ -183,6 +206,7 @@
 			Text = "AimTest";
 			paButtons.ResumeLayout(false);
 			paButtons.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)nudAvgDistance).EndInit();
 			((System.ComponentModel.ISupportInitialize)nudAccuracy).EndInit();
 			((System.ComponentModel.ISupportInitialize)nudHits).EndInit();
 			((System.ComponentModel.ISupportInitialize)nudClicks).EndInit();
@@ -203,5 +227,7 @@
 		private Label laAccuracy;
 		private TextBox tbSpeed;
 		private Label laSpeed;
+		private NumericUpDown nudAvgDistance;
+		private Label laAvgDistance;
 	}
 }

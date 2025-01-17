@@ -16,6 +16,7 @@ namespace HumanBenchmarks.Forms
 		public int Hits => _Hits;
 		public double Accuracy => _Hits / (double)_Clicks;
 		public List<long> TimesInTicks { get; } = new List<long>();
+		public List<double> HitAccuracies { get; } = new List<double>();
 
 		private Target? TargetBounds { get; set; } = null;
 		private Stopwatch? StopWatch { get; set; }
@@ -35,7 +36,12 @@ namespace HumanBenchmarks.Forms
 
 			public bool IsInTarget(int x1, int y1)
 			{
-				return Math.Sqrt(Math.Pow(x1 - (X + Width / 2), 2) + Math.Pow(y1 - (Y + Height / 2), 2)) <= TARGETSIZE / 2 + 1;
+				return DistanceFromCenterPX(x1, y1) <= TARGETSIZE / 2 + 1;
+			}
+
+			public double DistanceFromCenterPX(int x, int y)
+			{
+				return Math.Sqrt(Math.Pow(x - (X + Width / 2), 2) + Math.Pow(y - (Y + Height / 2), 2));
 			}
 		}
 
@@ -84,6 +90,8 @@ namespace HumanBenchmarks.Forms
 			WithInvoke(nudClicks, () => nudClicks.Value = _Clicks);
 			if (TargetBounds == null || !TargetBounds.IsInTarget(e.X, e.Y))
 				return;
+			HitAccuracies.Add(TargetBounds.DistanceFromCenterPX(e.X, e.Y));
+			WithInvoke(nudAvgDistance, () => nudAvgDistance.Value = (decimal)HitAccuracies.Average());
 			TargetBounds = null;
 			WithInvoke(paGame, paGame.Invalidate);
 			_Hits++;
