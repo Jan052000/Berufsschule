@@ -48,6 +48,7 @@ namespace HumanBenchmarks.Forms
 		public AimTest()
 		{
 			InitializeComponent();
+			MinimumSize = new Size(150 + TARGETSIZE + 2, 150 + paButtons.Height + TARGETSIZE + 2);
 		}
 
 		private void WithInvoke(Control control, Action action)

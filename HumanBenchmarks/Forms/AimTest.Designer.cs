@@ -68,13 +68,13 @@
 			paButtons.Dock = DockStyle.Bottom;
 			paButtons.Location = new Point(0, 409);
 			paButtons.Name = "paButtons";
-			paButtons.Size = new Size(977, 41);
+			paButtons.Size = new Size(936, 41);
 			paButtons.TabIndex = 0;
 			// 
 			// nudAvgDistance
 			// 
 			nudAvgDistance.Enabled = false;
-			nudAvgDistance.Location = new Point(804, 6);
+			nudAvgDistance.Location = new Point(804, 7);
 			nudAvgDistance.Name = "nudAvgDistance";
 			nudAvgDistance.Size = new Size(120, 23);
 			nudAvgDistance.TabIndex = 12;
@@ -188,7 +188,7 @@
 			paGame.Dock = DockStyle.Fill;
 			paGame.Location = new Point(0, 0);
 			paGame.Name = "paGame";
-			paGame.Size = new Size(977, 409);
+			paGame.Size = new Size(936, 409);
 			paGame.TabIndex = 1;
 			paGame.Click += paGame_Click;
 			paGame.Paint += paGame_Paint;
@@ -198,7 +198,7 @@
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(977, 450);
+			ClientSize = new Size(936, 450);
 			Controls.Add(paGame);
 			Controls.Add(paButtons);
 			Name = "AimTest";

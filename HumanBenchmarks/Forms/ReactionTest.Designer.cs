@@ -42,7 +42,7 @@
 			paGameArea.Dock = DockStyle.Fill;
 			paGameArea.Location = new Point(0, 0);
 			paGameArea.Name = "paGameArea";
-			paGameArea.Size = new Size(800, 450);
+			paGameArea.Size = new Size(936, 450);
 			paGameArea.TabIndex = 1;
 			paGameArea.Click += paGameArea_Click;
 			paGameArea.Paint += paGameArea_Paint;
@@ -55,14 +55,14 @@
 			panel1.Dock = DockStyle.Bottom;
 			panel1.Location = new Point(0, 411);
 			panel1.Name = "panel1";
-			panel1.Size = new Size(800, 39);
+			panel1.Size = new Size(936, 39);
 			panel1.TabIndex = 0;
 			// 
 			// tbAvg
 			// 
 			tbAvg.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 			tbAvg.Enabled = false;
-			tbAvg.Location = new Point(655, 13);
+			tbAvg.Location = new Point(791, 13);
 			tbAvg.Name = "tbAvg";
 			tbAvg.Size = new Size(133, 23);
 			tbAvg.TabIndex = 3;
@@ -72,7 +72,7 @@
 			// 
 			laAvg.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 			laAvg.AutoSize = true;
-			laAvg.Location = new Point(599, 16);
+			laAvg.Location = new Point(735, 16);
 			laAvg.Name = "laAvg";
 			laAvg.Size = new Size(50, 15);
 			laAvg.TabIndex = 2;
@@ -93,7 +93,7 @@
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(800, 450);
+			ClientSize = new Size(936, 450);
 			Controls.Add(panel1);
 			Controls.Add(paGameArea);
 			Name = "ReactionTest";

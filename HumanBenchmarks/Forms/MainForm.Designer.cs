@@ -37,7 +37,7 @@
 			// btClose
 			// 
 			btClose.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			btClose.Location = new Point(713, 415);
+			btClose.Location = new Point(849, 415);
 			btClose.Name = "btClose";
 			btClose.Size = new Size(75, 23);
 			btClose.TabIndex = 0;
@@ -79,7 +79,7 @@
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(800, 450);
+			ClientSize = new Size(936, 450);
 			Controls.Add(btAimTest);
 			Controls.Add(btSimonSays);
 			Controls.Add(btReactionCheck);
