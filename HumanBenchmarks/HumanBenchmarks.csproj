@@ -8,4 +8,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="~%24ojektdokumentation PicOLDius Seniorenheim.docx" />
+  </ItemGroup>
+
 </Project>
