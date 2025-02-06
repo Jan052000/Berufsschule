@@ -10,7 +10,7 @@
 
 		private int GetMinimumWidth()
 		{
-			int btadmin = 2*btAimTest.Location.X + btAimTest.Width + btAimTest.Margin.Left + btAimTest.Margin.Right;
+			int btadmin = 2 * btAimTest.Location.X + btAimTest.Width + btAimTest.Margin.Left + btAimTest.Margin.Right;
 			int btdashboard = btDashboard.Width + btDashboard.Margin.Left + btDashboard.Margin.Right;
 			return btadmin + btdashboard + 6;
 		}

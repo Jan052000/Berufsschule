@@ -4,6 +4,7 @@ namespace HumanBenchmarks.Forms
 {
 	public partial class ReactionTest : Form
 	{
+		public const int GAMEID = 0;
 		private bool WaitForStart { get; set; } = true;
 		private bool ShowGreen { get; set; } = false;
 		public List<int> Results { get; } = new List<int>();
