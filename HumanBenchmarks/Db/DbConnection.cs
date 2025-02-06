@@ -120,5 +120,13 @@ namespace HumanBenchmarks.Db
 				cmd.ExecuteNonQuery();
 			}
 		}
+
+		public static void SaveScore(ScoreClass score)
+		{
+			using var conn = GetSQLiteConnection();
+			using var cmd = conn.CreateCommand();
+			cmd.CommandText = DbUtils.GetInsertCommand(score, DbDialect);
+			cmd.ExecuteNonQuery();
+		}
 	}
 }

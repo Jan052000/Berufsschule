@@ -1,4 +1,4 @@
-using DataBaseUtils;
+﻿using DataBaseUtils;
 using HumanBenchmarks.Db;
 using HumanBenchmarks.Db.Classes;
 
@@ -40,18 +40,63 @@ namespace HumanBenchmarks.Forms
 		{
 			ReactionTest test = new ReactionTest();
 			test.ShowDialog();
+			if (CurrentUser == null)
+				return;
+			DateTime now = DateTime.Today;
+			foreach (int score in test.Results)
+			{
+				DbConnection.SaveScore(
+				new ScoreClass()
+				{
+					GameID = ReactionTest.GAMEID,
+					ResidentID = CurrentUser.Id,
+					TestDate = now,
+					Score = score
+				});
+			}
 		}
 
 		private void btSimonSays_Click(object sender, EventArgs e)
 		{
 			SimonSaysGame test = new SimonSaysGame();
 			test.ShowDialog();
+			if (CurrentUser == null)
+				return;
+			DateTime now = DateTime.Today;
+			foreach ((int Round, int Step) in test.Results)
+			{
+				int corrects = 0;
+				for (int i = 1; i < Round; i++)
+					corrects += i;
+				DbConnection.SaveScore(
+				new ScoreClass()
+				{
+					GameID = ReactionTest.GAMEID,
+					ResidentID = CurrentUser.Id,
+					TestDate = now,
+					Score = corrects + Step
+				});
+			}
 		}
 
 		private void btAimTest_Click(object sender, EventArgs e)
 		{
 			AimTest test = new AimTest();
 			test.ShowDialog();
+			if (CurrentUser == null)
+				return;
+			DateTime now = DateTime.Today;
+			foreach (long ticks in test.TimesInTicks)
+			{
+				DbConnection.SaveScore(
+				new ScoreClass()
+				{
+					GameID = ReactionTest.GAMEID,
+					ResidentID = CurrentUser.Id,
+					TestDate = now,
+					Score = float.Parse($"{ticks / 10000}.{test.Accuracy}")
+				});
+			}
 		}
 
 		private void btDashboard_Click(object sender, EventArgs e)
