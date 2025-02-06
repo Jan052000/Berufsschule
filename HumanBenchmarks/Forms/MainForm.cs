@@ -5,6 +5,19 @@
 		public MainForm()
 		{
 			InitializeComponent();
+			MinimumSize = new Size(GetMinimumWidth(), GetMinimumHeight());
+		}
+
+		private int GetMinimumWidth()
+		{
+			int btadmin = 2*btAimTest.Location.X + btAimTest.Width + btAimTest.Margin.Left + btAimTest.Margin.Right;
+			int btdashboard = btDashboard.Width + btDashboard.Margin.Left + btDashboard.Margin.Right;
+			return btadmin + btdashboard + 6;
+		}
+
+		private int GetMinimumHeight()
+		{
+			return 200;
 		}
 
 		private void btClose_Click(object sender, EventArgs e)
@@ -28,6 +41,11 @@
 		{
 			AimTest test = new AimTest();
 			test.ShowDialog();
+		}
+
+		private void btDashboard_Click(object sender, EventArgs e)
+		{
+			new Dashboard("").Show();
 		}
 	}
 }

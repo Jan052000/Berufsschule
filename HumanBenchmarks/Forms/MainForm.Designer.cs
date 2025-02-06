@@ -32,6 +32,7 @@
 			btReactionCheck = new Button();
 			btSimonSays = new Button();
 			btAimTest = new Button();
+			btDashboard = new Button();
 			SuspendLayout();
 			// 
 			// btClose
@@ -75,11 +76,23 @@
 			btAimTest.UseVisualStyleBackColor = true;
 			btAimTest.Click += btAimTest_Click;
 			// 
+			// btDashboard
+			// 
+			btDashboard.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			btDashboard.Location = new Point(849, 12);
+			btDashboard.Name = "btDashboard";
+			btDashboard.Size = new Size(75, 23);
+			btDashboard.TabIndex = 4;
+			btDashboard.Text = "Dashboard";
+			btDashboard.UseVisualStyleBackColor = true;
+			btDashboard.Click += btDashboard_Click;
+			// 
 			// MainForm
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(936, 450);
+			Controls.Add(btDashboard);
 			Controls.Add(btAimTest);
 			Controls.Add(btSimonSays);
 			Controls.Add(btReactionCheck);
@@ -95,5 +108,6 @@
 		private Button btReactionCheck;
 		private Button btSimonSays;
 		private Button btAimTest;
+		private Button btDashboard;
 	}
 }
