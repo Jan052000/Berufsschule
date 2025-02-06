@@ -1,9 +1,20 @@
-﻿namespace HumanBenchmarks.Forms
+using DataBaseUtils;
+using HumanBenchmarks.Db;
+using HumanBenchmarks.Db.Classes;
+
+namespace HumanBenchmarks.Forms
 {
 	internal partial class MainForm : Form
 	{
+		public UserClass? CurrentUser { get; set; }
+
 		public MainForm()
 		{
+			DbConnection.InitDB();
+			LoginForm login = new LoginForm();
+			login.ShowDialog();
+			CurrentUser = login.User;
+
 			InitializeComponent();
 			MinimumSize = new Size(GetMinimumWidth(), GetMinimumHeight());
 		}
