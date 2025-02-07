@@ -63,7 +63,7 @@ namespace HumanBenchmarks.Forms
 				DbConnection.SaveScore(
 				new ScoreClass()
 				{
-					GameID = ReactionTest.GAMEID,
+					GameID = SimonSaysGame.GAMEID,
 					ResidentID = CurrentUser.Id,
 					TestDate = now,
 					Score = corrects + Step
@@ -81,7 +81,7 @@ namespace HumanBenchmarks.Forms
 			DbConnection.SaveScore(
 			new ScoreClass()
 			{
-				GameID = ReactionTest.GAMEID,
+				GameID = AimTest.GAMEID,
 				ResidentID = CurrentUser.Id,
 				TestDate = now,
 				Score = double.Parse($"{test.TimesInTicks.Average() / 10000}.{test.Accuracy}")
@@ -108,7 +108,7 @@ namespace HumanBenchmarks.Forms
 		{
 			Hide();
 			DoLogin();
-			ShowDialog();
+			Show();
 		}
 	}
 }
