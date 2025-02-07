@@ -1,6 +1,6 @@
-﻿using DataBaseUtils;
-using HumanBenchmarks.Db;
+﻿using HumanBenchmarks.Db;
 using HumanBenchmarks.Db.Classes;
+using HumanBenchmarks.Forms.Dashboard;
 
 namespace HumanBenchmarks.Forms
 {
@@ -17,6 +17,7 @@ namespace HumanBenchmarks.Forms
 
 			InitializeComponent();
 			MinimumSize = new Size(GetMinimumWidth(), GetMinimumHeight());
+			btDashboard.Enabled = CurrentUser != null;
 		}
 
 		private int GetMinimumWidth()
@@ -86,22 +87,21 @@ namespace HumanBenchmarks.Forms
 			if (CurrentUser == null)
 				return;
 			DateTime now = DateTime.Today;
-			foreach (long ticks in test.TimesInTicks)
+			DbConnection.SaveScore(
+			new ScoreClass()
 			{
-				DbConnection.SaveScore(
-				new ScoreClass()
-				{
-					GameID = ReactionTest.GAMEID,
-					ResidentID = CurrentUser.Id,
-					TestDate = now,
-					Score = float.Parse($"{ticks / 10000}.{test.Accuracy}")
-				});
-			}
+				GameID = ReactionTest.GAMEID,
+				ResidentID = CurrentUser.Id,
+				TestDate = now,
+				Score = double.Parse($"{test.TimesInTicks.Average() / 10000}.{test.Accuracy}")
+			});
 		}
 
 		private void btDashboard_Click(object sender, EventArgs e)
 		{
-			new Dashboard("").Show();
+			if (CurrentUser == null)
+				return;
+			new DashboardForm(CurrentUser).Show();
 		}
 	}
 }

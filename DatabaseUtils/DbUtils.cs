@@ -283,9 +283,64 @@ namespace DataBaseUtils
 			return command + where;
 		}
 
-		private static List<PropertyInfo> GetPrimaryKeys<T>(T obj)
+		/// <summary>
+		/// Generates a command to get all rows from table of <paramref name="tableObject"/>(<typeparamref name="T"/>) where foreign keys match primary keys of <paramref name="foreignObject"/>(<typeparamref name="F"/>)
+		/// </summary>
+		/// <typeparam name="T">Table to get data from</typeparam>
+		/// <typeparam name="F">Foreign key values to get data of</typeparam>
+		/// <param name="foreignObject">Foreign object to get primary key values from</param>
+		/// <param name="dialect"><see cref="IDbTypeSwitch"/> to use for formatting values</param>
+		/// <param name="cols">Optional <see cref="List{T}"/> of column names to select (selects all if <see langword="null"/>)</param>
+		/// <param name="tableObject">Optional object of table to get data from</param>
+		/// <returns>Command to get all rows  for foreign keys</returns>
+		public static string GetGetSingleFromForeign<T, F>(F foreignObject, IDbTypeSwitch dialect, List<string>? cols = null, T? tableObject = null) where T : class where F : class
+		{
+			string command = $"SELECT {String.Join(",", cols ?? new List<string>() { "*" })} FROM {GetTableName<T>()}";
+
+			List<PropertyInfo> primaryKeysForeignObject = GetPrimaryKeys(foreignObject);
+			List<PropertyInfo> keyMatches = new List<PropertyInfo>();
+			foreach (PropertyInfo property in GetForeignKeys<T>())
+			{
+				if (property.GetCustomAttribute<ForeignKeyAttribute>()!.ReferencedTable == GetTableName(foreignObject))
+					keyMatches.Add(property);
+			}
+
+			List<string> wheres = new List<string>();
+			foreach (PropertyInfo property in keyMatches)
+			{
+				ForeignKeyAttribute foreignKey = property.GetCustomAttribute<ForeignKeyAttribute>()!;
+				PropertyInfo? primaryForeignObject = primaryKeysForeignObject.Find(prop => prop.GetCustomAttribute<PrimaryKeyAttribute>()!.ColumnName == foreignKey.ReferencedColumn);
+				if (primaryForeignObject == null)
+					continue;
+				wheres.Add($"{foreignKey.ColumnName}={dialect.FormatValue(primaryForeignObject.GetValue(foreignObject))}");
+			}
+
+			string where = $"\nWHERE\n{String.Join(" AND\n", wheres)}";
+
+			if (wheres.Count > 0)
+				command += where;
+
+			return command;
+		}
+
+		private static List<PropertyInfo> GetPrimaryKeys<T>()
 		{
 			return typeof(T).GetProperties().Where(prop => prop.GetCustomAttribute<PrimaryKeyAttribute>() is not null).ToList();
+		}
+
+		private static List<PropertyInfo> GetPrimaryKeys<T>(T obj)
+		{
+			return GetPrimaryKeys<T>();
+		}
+
+		private static List<PropertyInfo> GetForeignKeys<T>()
+		{
+			return typeof(T).GetProperties().Where(prop => prop.GetCustomAttribute<ForeignKeyAttribute>() is not null).ToList();
+		}
+
+		private static List<PropertyInfo> GetForeignKeys<T>(T obj)
+		{
+			return GetForeignKeys<T>();
 		}
 	}
 }

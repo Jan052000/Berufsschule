@@ -16,6 +16,7 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\DatabaseUtils\DatabaseUtils.csproj" />
+	  <ProjectReference Include="..\DataGridViewUtils\DataGridViewUtils.csproj" />
 	</ItemGroup>
 
 </Project>

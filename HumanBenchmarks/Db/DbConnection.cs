@@ -1,6 +1,7 @@
 ﻿using DataBaseUtils;
 using HumanBenchmarks.Db.Classes;
 using HumanBenchmarks.Forms;
+using HumanBenchmarks.Scores;
 using System.Data.Common;
 using System.Data.SQLite;
 
@@ -48,21 +49,21 @@ namespace HumanBenchmarks.Db
 					FirstName = "Gladis",
 					LastName = "Bauer",
 					BirthDay = new DateTime(1920, 12, 24),
-					Id = 0
+					Id = 1
 				},
 				new UserClass()
 				{
 					FirstName = "Harald",
 					LastName = "Harald",
 					BirthDay = new DateTime(1900, 1, 1),
-					Id = 1
+					Id = 2
 				},
 				new UserClass()
 				{
 					FirstName = "Henri",
 					LastName = "Henrison",
 					BirthDay=new DateTime(2019, 4, 5),
-					Id = 2
+					Id = 3
 				}
 			};
 			using (DbCommand cmd = conn.CreateCommand())
@@ -75,7 +76,7 @@ namespace HumanBenchmarks.Db
 			{
 				new ScoreClass()
 				{
-					ID = 0,
+					ID = 1,
 					GameID = SimonSaysGame.GAMEID,
 					ResidentID = users[2].Id,
 					Score = -300,
@@ -83,7 +84,7 @@ namespace HumanBenchmarks.Db
 				},
 				new ScoreClass()
 				{
-					ID = 1,
+					ID = 2,
 					GameID = AimTest.GAMEID,
 					ResidentID = users[2].Id,
 					Score = -999,
@@ -91,7 +92,7 @@ namespace HumanBenchmarks.Db
 				},
 				new ScoreClass()
 				{
-					ID = 2,
+					ID = 3,
 					GameID = ReactionTest.GAMEID,
 					ResidentID = users[2].Id,
 					Score = 30000,
@@ -99,15 +100,15 @@ namespace HumanBenchmarks.Db
 				},
 				new ScoreClass()
 				{
-					ID = 3,
+					ID = 4,
 					GameID = AimTest.GAMEID,
 					ResidentID = users[0].Id,
-					Score = 1230,
+					Score = 1230.1,
 					TestDate = new DateTime(2025, 2, 6)
 				},
 				new ScoreClass()
 				{
-					ID = 4,
+					ID = 5,
 					GameID = ReactionTest.GAMEID,
 					ResidentID = users[0].Id,
 					Score = 120,
@@ -127,6 +128,35 @@ namespace HumanBenchmarks.Db
 			using var cmd = conn.CreateCommand();
 			cmd.CommandText = DbUtils.GetInsertCommand(score, DbDialect);
 			cmd.ExecuteNonQuery();
+		}
+
+		public static List<ScoreClass> GetTestScores(UserClass user)
+		{
+			using var conn = GetSQLiteConnection();
+			using var cmd = conn.CreateCommand();
+			cmd.CommandText = DbUtils.GetGetSingleFromForeign<ScoreClass, UserClass>(user, DbDialect);
+			List<ScoreClass> scores = new List<ScoreClass>();
+			using var reader = cmd.ExecuteReader();
+			while (reader.Read())
+			{
+				ScoreClass score = DbBaseClass.Serialize<ScoreClass>(reader);
+				switch (score.GameID)
+				{
+					case SimonSaysGame.GAMEID:
+						scores.Add(new SimonSaysScore(score));
+						break;
+					case AimTest.GAMEID:
+						scores.Add(new AimTestScore(score));
+						break;
+					case ReactionTest.GAMEID:
+						scores.Add(new ReactionTestScore(score));
+						break;
+					default:
+						scores.Add(score);
+						break;
+				}
+			}
+			return scores;
 		}
 	}
 }

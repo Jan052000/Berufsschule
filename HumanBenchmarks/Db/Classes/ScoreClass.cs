@@ -11,7 +11,7 @@ namespace HumanBenchmarks.Db.Classes
 		[ForeignKey("BewohnerNR", typeof(UserClass), "BewohnerNR")]
 		public long? ResidentID { get; set; }
 		[Column("Ergebnis")]
-		public float? Score { get; set; }
+		public double? Score { get; set; }
 		[Column("SpielID")]
 		public long? GameID { get; set; }
 		[Column("TestDatum")]
