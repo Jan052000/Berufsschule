@@ -7,8 +7,8 @@ namespace HumanBenchmarks.Scores
 	{
 		[DataGridColumn("Genauigkeit %", typeof(DataGridViewTextBoxCell), Readonly = true)]
 		public double Accuracy => BreakUpScore().Accuracy;
-		[DataGridColumn("Ziele", typeof(DataGridViewTextBoxCell), Readonly = true)]
-		public int Targets => BreakUpScore().Targets;
+		[DataGridColumn("Ziel Zeit MS", typeof(DataGridViewTextBoxCell), Readonly = true)]
+		public int TimeInMS => BreakUpScore().Targets;
 
 		public AimTestScore(ScoreClass score)
 		{
@@ -25,7 +25,7 @@ namespace HumanBenchmarks.Scores
 
 			res.t = (int?)Score ?? 0 * 10 / 10;
 			if (Score is double score)
-				res.a = (score - Math.Floor(score)) * 1000;
+				res.a = (score - Math.Floor(score)) * 100;
 			res.a = Math.Round(res.a, 2);
 
 			return res;

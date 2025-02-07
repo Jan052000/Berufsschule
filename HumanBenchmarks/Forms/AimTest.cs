@@ -12,7 +12,7 @@ namespace HumanBenchmarks.Forms
 
 		private int _Clicks = 0;
 		private int _Hits = 0;
-		private bool GameStarted = false;
+		public bool GameStarted { get; private set; } = false;
 
 		public int Clicks => _Clicks;
 		public int Hits => _Hits;

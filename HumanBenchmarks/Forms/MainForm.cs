@@ -78,13 +78,16 @@ namespace HumanBenchmarks.Forms
 			if (CurrentUser == null)
 				return;
 			DateTime now = DateTime.Today;
+			if (!test.GameStarted)
+				return;
+			double accuracy = Math.Round(test.Accuracy * 10000, 0);
 			DbConnection.SaveScore(
 			new ScoreClass()
 			{
 				GameID = AimTest.GAMEID,
 				ResidentID = CurrentUser.Id,
 				TestDate = now,
-				Score = double.Parse($"{test.TimesInTicks.Average() / 10000}.{test.Accuracy}")
+				Score = double.Parse($"{Math.Round(test.TimesInTicks.Average() / 10000, 0)}.{(accuracy < 100 ? $"0{accuracy}" : accuracy)}", System.Globalization.CultureInfo.InvariantCulture)
 			});
 		}
 

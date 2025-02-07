@@ -11,7 +11,7 @@ namespace HumanBenchmarks.Forms.Dashboard
 				typeof(AimTestScore), new List<(Func<List<ScoreClass>, string> Function, string MetricName)>
 				{
 					(score => Math.Round(score.Cast<AimTestScore>().Select(ats => ats.Accuracy).Average(), 2).ToString() + "%", "Genauigkeit"),
-					(score => Math.Round(score.Cast<AimTestScore>().Select(ats => ats.Targets).Average(), 2).ToString(), "Ziele")
+					(score => Math.Round(score.Cast<AimTestScore>().Select(ats => ats.TimeInMS).Average(), 2).ToString(), "Ziele")
 				}
 			},
 			{
