@@ -7,11 +7,13 @@ namespace HumanBenchmarks.Forms
 	internal partial class MainForm : Form
 	{
 		public UserClass? CurrentUser { get; set; }
+		private string TextCache { get; set; }
 
 		public MainForm()
 		{
 			DbConnection.InitDB();
 			InitializeComponent();
+			TextCache = Text;
 			DoLogin();
 			MinimumSize = new Size(GetMinimumWidth(), GetMinimumHeight());
 		}
@@ -105,6 +107,10 @@ namespace HumanBenchmarks.Forms
 			login.ShowDialog();
 			CurrentUser = login.User;
 			btDashboard.Enabled = CurrentUser != null;
+			if (CurrentUser == null)
+				Text = TextCache;
+			else
+				Text = $"{TextCache} User: {CurrentUser.Id}";
 		}
 
 		private void btLogout_Click(object sender, EventArgs e)
