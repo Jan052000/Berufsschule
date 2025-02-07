@@ -45,6 +45,7 @@
 			// 
 			// paButtons
 			// 
+			paButtons.AutoScroll = true;
 			paButtons.Controls.Add(laEnd);
 			paButtons.Controls.Add(dtpEnd);
 			paButtons.Controls.Add(laStart);
@@ -74,7 +75,7 @@
 			// laStart
 			// 
 			laStart.AutoSize = true;
-			laStart.Location = new Point(68, 19);
+			laStart.Location = new Point(12, 19);
 			laStart.Name = "laStart";
 			laStart.Size = new Size(70, 15);
 			laStart.TabIndex = 1;
@@ -82,7 +83,7 @@
 			// 
 			// dtpStart
 			// 
-			dtpStart.Location = new Point(144, 13);
+			dtpStart.Location = new Point(88, 13);
 			dtpStart.Name = "dtpStart";
 			dtpStart.Size = new Size(200, 23);
 			dtpStart.TabIndex = 0;
@@ -150,7 +151,7 @@
 			ClientSize = new Size(784, 411);
 			Controls.Add(paContent);
 			Controls.Add(paButtons);
-			MinimumSize = new Size(300, 100);
+			MinimumSize = new Size(800, 450);
 			Name = "DashboardForm";
 			Text = "Dashboard";
 			paButtons.ResumeLayout(false);
