@@ -179,11 +179,11 @@ namespace DataBaseUtils
 		/// </summary>
 		/// <param name="updatedRow"><see cref="DbBaseClass"/> object to update row of</param>
 		/// <returns>Command for row update</returns>
-		public static string GetUpdateRowCommand(DbBaseClass updatedRow, IDbTypeSwitch dialect)
+		public static string GetUpdateRowCommand<T>(T updatedRow, IDbTypeSwitch dialect) where T : class
 		{
 			List<string> command = new List<string>()
 			{
-				$"UPDATE {GetTableName(updatedRow)}\nSET\n"
+				$"UPDATE {GetTableName<T>()}\nSET\n"
 			};
 			List<PropertyInfo> properties = updatedRow.GetType().GetProperties()
 				.Where(prop => prop.GetCustomAttribute<ColumnAttribute>() is not null and not PrimaryKeyAttribute).ToList();
