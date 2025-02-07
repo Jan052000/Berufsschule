@@ -8,6 +8,8 @@
 
 		public string RequiredString => "NOT NULL";
 
+		public string DateFormat => "yyyy-MM-dd HH:mm:ss.fff";
+
 		private Dictionary<Type, string> TypeSwitch { get; } = new Dictionary<Type, string>()
 		{
 			{ typeof(string), "TEXT" },
@@ -56,7 +58,7 @@
 				case double:
 					return Convert.ToString(value, System.Globalization.CultureInfo.InvariantCulture) ?? "null";
 				case DateTime dt:
-					return $"'{dt:yyyy-MM-dd HH:mm:ss.fff}'";
+					return $"'{dt.ToString(DateFormat)}'";
 				default:
 					return $"'{(value.ToString() ?? "")}'";
 			}

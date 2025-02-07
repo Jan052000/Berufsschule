@@ -15,6 +15,10 @@
 		/// </summary>
 		string RequiredString { get; }
 		/// <summary>
+		/// Format for <see cref="DateTime"/> strings in database
+		/// </summary>
+		string DateFormat { get; }
+		/// <summary>
 		/// Gets the string representation for dialect specific DBTypes
 		/// </summary>
 		/// <param name="type"><see cref="Type"/> of c# property to transform</param>

@@ -113,6 +113,14 @@ namespace HumanBenchmarks.Db
 					ResidentID = users[0].Id,
 					Score = 120,
 					TestDate = new DateTime(2025, 2, 6)
+				},
+				new ScoreClass()
+				{
+					ID = 6,
+					GameID = ReactionTest.GAMEID,
+					ResidentID = users[0].Id,
+					Score = 0,
+					TestDate = new DateTime(2025, 2, 7)
 				}
 			};
 			using (DbCommand cmd = conn.CreateCommand())
@@ -130,11 +138,21 @@ namespace HumanBenchmarks.Db
 			cmd.ExecuteNonQuery();
 		}
 
-		public static List<ScoreClass> GetTestScores(UserClass user)
+		public static List<ScoreClass> GetTestScores(UserClass user, DateTime? start = null, DateTime? end = null)
 		{
 			using var conn = GetSQLiteConnection();
 			using var cmd = conn.CreateCommand();
 			cmd.CommandText = DbUtils.GetGetSingleFromForeign<ScoreClass, UserClass>(user, DbDialect);
+
+			string where = "";
+			if (start is DateTime sdt)
+				where += $"\nAND TestDatum>={DbDialect.FormatValue(start)}";
+			if (end is DateTime edt)
+				where += $"\nAND TestDatum<={DbDialect.FormatValue(end)}";
+			if (!cmd.CommandText.Contains("WHERE", StringComparison.InvariantCultureIgnoreCase) && !string.IsNullOrEmpty(where))
+				where = "WHERE" + where;
+			cmd.CommandText += where;
+
 			List<ScoreClass> scores = new List<ScoreClass>();
 			using var reader = cmd.ExecuteReader();
 			while (reader.Read())
