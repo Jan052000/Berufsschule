@@ -17,9 +17,9 @@ namespace HumanBenchmarks.Forms.Dashboard
 			ActiveUser = activeUser;
 
 			List<ScoreClass> scores = DbConnection.GetTestScores(activeUser);
-			paReactionTime.Controls.Add(new ScoreControl(scores.Where(score => score is ReactionTestScore).ToList()) { Dock = DockStyle.Fill });
-			paSimonSays.Controls.Add(new ScoreControl(scores.Where(score => score is SimonSaysScore).ToList()) { Dock = DockStyle.Fill });
-			paAimTest.Controls.Add(new ScoreControl(scores.Where(score => score is AimTestScore).ToList()) { Dock = DockStyle.Fill });
+			paReactionTime.Controls.Add(new ScoreControl(scores.Where(score => score is ReactionTestScore).ToList(), ReactionTest.GAMENAME) { Dock = DockStyle.Fill });
+			paSimonSays.Controls.Add(new ScoreControl(scores.Where(score => score is SimonSaysScore).ToList(), SimonSaysGame.GAMENAME) { Dock = DockStyle.Fill });
+			paAimTest.Controls.Add(new ScoreControl(scores.Where(score => score is AimTestScore).ToList(), AimTest.GAMENAME) { Dock = DockStyle.Fill });
 		}
 	}
 }

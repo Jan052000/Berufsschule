@@ -30,27 +30,42 @@
 		{
 			paButtons = new Panel();
 			paContent = new Panel();
+			paDataGrid = new Panel();
 			dgvContent = new DataGridView();
+			paTitle = new Panel();
+			laTitle = new Label();
 			paContent.SuspendLayout();
+			paDataGrid.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)dgvContent).BeginInit();
+			paTitle.SuspendLayout();
 			SuspendLayout();
 			// 
 			// paButtons
 			// 
 			paButtons.Dock = DockStyle.Bottom;
-			paButtons.Location = new Point(0, 324);
+			paButtons.Location = new Point(0, 333);
 			paButtons.Name = "paButtons";
-			paButtons.Size = new Size(512, 65);
+			paButtons.Size = new Size(512, 56);
 			paButtons.TabIndex = 0;
 			// 
 			// paContent
 			// 
-			paContent.Controls.Add(dgvContent);
+			paContent.Controls.Add(paDataGrid);
+			paContent.Controls.Add(paTitle);
 			paContent.Dock = DockStyle.Fill;
 			paContent.Location = new Point(0, 0);
 			paContent.Name = "paContent";
-			paContent.Size = new Size(512, 324);
+			paContent.Size = new Size(512, 333);
 			paContent.TabIndex = 1;
+			// 
+			// paDataGrid
+			// 
+			paDataGrid.Controls.Add(dgvContent);
+			paDataGrid.Dock = DockStyle.Fill;
+			paDataGrid.Location = new Point(0, 21);
+			paDataGrid.Name = "paDataGrid";
+			paDataGrid.Size = new Size(512, 312);
+			paDataGrid.TabIndex = 1;
 			// 
 			// dgvContent
 			// 
@@ -63,8 +78,26 @@
 			dgvContent.Location = new Point(0, 0);
 			dgvContent.Name = "dgvContent";
 			dgvContent.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-			dgvContent.Size = new Size(512, 324);
+			dgvContent.Size = new Size(512, 312);
 			dgvContent.TabIndex = 0;
+			// 
+			// paTitle
+			// 
+			paTitle.Controls.Add(laTitle);
+			paTitle.Dock = DockStyle.Top;
+			paTitle.Location = new Point(0, 0);
+			paTitle.Name = "paTitle";
+			paTitle.Size = new Size(512, 21);
+			paTitle.TabIndex = 0;
+			// 
+			// laTitle
+			// 
+			laTitle.AutoSize = true;
+			laTitle.Location = new Point(0, 0);
+			laTitle.Name = "laTitle";
+			laTitle.Size = new Size(53, 15);
+			laTitle.TabIndex = 0;
+			laTitle.Text = "{{game}}";
 			// 
 			// ScoreControl
 			// 
@@ -75,7 +108,10 @@
 			Name = "ScoreControl";
 			Size = new Size(512, 389);
 			paContent.ResumeLayout(false);
+			paDataGrid.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)dgvContent).EndInit();
+			paTitle.ResumeLayout(false);
+			paTitle.PerformLayout();
 			ResumeLayout(false);
 		}
 
@@ -83,6 +119,9 @@
 
 		private Panel paButtons;
 		private Panel paContent;
+		private Panel paTitle;
+		private Label laTitle;
+		private Panel paDataGrid;
 		private DataGridView dgvContent;
 	}
 }

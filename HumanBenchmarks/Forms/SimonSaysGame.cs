@@ -2,6 +2,7 @@
 {
 	internal partial class SimonSaysGame : Form
 	{
+		public const string GAMENAME = "Simon says";
 		public const int GAMEID = 1;
 		private int NextIndex = -1;
 		private bool GameStarted = false;

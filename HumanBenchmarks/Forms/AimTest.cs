@@ -4,6 +4,7 @@ namespace HumanBenchmarks.Forms
 {
 	internal partial class AimTest : Form
 	{
+		public const string GAMENAME = "Aim";
 		public const int GAMEID = 2;
 		private const int TARGETSIZE = 25;
 		private const int TARGETRINGSPACING = 15;
