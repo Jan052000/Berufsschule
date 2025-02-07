@@ -16,5 +16,7 @@ namespace HumanBenchmarks.Db.Classes
 		public long? GameID { get; set; }
 		[Column("TestDatum")]
 		public DateTime? TestDate { get; set; }
+		[DataGridViewUtils.Attributes.DataGridColumn("Datum", typeof(DataGridViewTextBoxCell))]
+		public string? TestDateDate => TestDate?.Date.ToShortDateString();
 	}
 }

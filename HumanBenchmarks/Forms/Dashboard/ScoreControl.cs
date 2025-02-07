@@ -24,7 +24,7 @@ namespace HumanBenchmarks.Forms.Dashboard
 				typeof(SimonSaysScore), new List<(Func<List<ScoreClass>, string> Function, string MetricName)>
 				{
 					(score => Math.Round(score.Cast<SimonSaysScore>().Select(sss => sss.Rounds).Average(), 2).ToString(), "Runden"),
-					(score => Math.Round(score.Cast < SimonSaysScore >().Select(sss => sss.Extra).Average(), 2).ToString(), "Runden fortschritt"),
+					(score => Math.Round(score.Cast < SimonSaysScore >().Select(sss => sss.Extra).Average(), 2).ToString(), "Runden Fortschritt"),
 				}
 			}
 		};

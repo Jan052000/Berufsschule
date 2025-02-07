@@ -8,6 +8,7 @@ namespace HumanBenchmarks.Forms
 	{
 		public UserClass? CurrentUser { get; set; }
 		private string TextCache { get; set; }
+		private DashboardForm? DashboardForm { get; set; }
 
 		public MainForm()
 		{
@@ -48,6 +49,7 @@ namespace HumanBenchmarks.Forms
 					Score = score
 				});
 			}
+			DashboardForm?.UpdateScores();
 		}
 
 		private void btSimonSays_Click(object sender, EventArgs e)
@@ -71,6 +73,7 @@ namespace HumanBenchmarks.Forms
 					Score = corrects + Step
 				});
 			}
+			DashboardForm?.UpdateScores();
 		}
 
 		private void btAimTest_Click(object sender, EventArgs e)
@@ -91,13 +94,16 @@ namespace HumanBenchmarks.Forms
 				TestDate = now,
 				Score = double.Parse($"{Math.Round(test.TimesInTicks.Average() / 10000, 0)}.{(accuracy < 100 ? $"0{accuracy}" : accuracy)}", System.Globalization.CultureInfo.InvariantCulture)
 			});
+			DashboardForm?.UpdateScores();
 		}
 
 		private void btDashboard_Click(object sender, EventArgs e)
 		{
-			if (CurrentUser == null)
+			if (CurrentUser == null || DashboardForm != null)
 				return;
-			new DashboardForm(CurrentUser).Show();
+			DashboardForm = new DashboardForm(CurrentUser);
+			DashboardForm.FormClosed += (s, e) => DashboardForm = null;
+			DashboardForm.Show();
 		}
 
 		private void DoLogin()

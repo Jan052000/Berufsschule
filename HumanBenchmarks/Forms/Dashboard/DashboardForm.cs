@@ -11,8 +11,6 @@ namespace HumanBenchmarks.Forms.Dashboard
 		public DashboardForm(UserClass activeUser)
 		{
 			InitializeComponent();
-			splitter1.Location = new Point(Width / 3, 0);
-			splitter2.Location = new Point((Width / 3) * 2, 0);
 
 			dtpStart.MinDate = dtpEnd.MinDate = DateTime.MinValue;
 			dtpStart.Value = dtpStart.MinDate;
@@ -24,6 +22,11 @@ namespace HumanBenchmarks.Forms.Dashboard
 
 			ActiveUser = activeUser;
 
+			AddFilteredControls();
+		}
+
+		public void UpdateScores()
+		{
 			AddFilteredControls();
 		}
 

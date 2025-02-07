@@ -53,7 +53,7 @@
 			paButtons.Dock = DockStyle.Bottom;
 			paButtons.Location = new Point(0, 359);
 			paButtons.Name = "paButtons";
-			paButtons.Size = new Size(784, 52);
+			paButtons.Size = new Size(993, 52);
 			paButtons.TabIndex = 0;
 			// 
 			// laEnd
@@ -98,21 +98,21 @@
 			paContent.Dock = DockStyle.Fill;
 			paContent.Location = new Point(0, 0);
 			paContent.Name = "paContent";
-			paContent.Size = new Size(784, 359);
+			paContent.Size = new Size(993, 359);
 			paContent.TabIndex = 1;
 			// 
 			// paAimTest
 			// 
 			paAimTest.BackColor = SystemColors.ControlLight;
 			paAimTest.Dock = DockStyle.Fill;
-			paAimTest.Location = new Point(526, 0);
+			paAimTest.Location = new Point(664, 0);
 			paAimTest.Name = "paAimTest";
-			paAimTest.Size = new Size(258, 359);
+			paAimTest.Size = new Size(329, 359);
 			paAimTest.TabIndex = 9;
 			// 
 			// splitter2
 			// 
-			splitter2.Location = new Point(523, 0);
+			splitter2.Location = new Point(661, 0);
 			splitter2.Name = "splitter2";
 			splitter2.Size = new Size(3, 359);
 			splitter2.TabIndex = 8;
@@ -122,14 +122,14 @@
 			// 
 			paSimonSays.BackColor = SystemColors.ControlLight;
 			paSimonSays.Dock = DockStyle.Left;
-			paSimonSays.Location = new Point(245, 0);
+			paSimonSays.Location = new Point(332, 0);
 			paSimonSays.Name = "paSimonSays";
-			paSimonSays.Size = new Size(278, 359);
+			paSimonSays.Size = new Size(329, 359);
 			paSimonSays.TabIndex = 7;
 			// 
 			// splitter1
 			// 
-			splitter1.Location = new Point(242, 0);
+			splitter1.Location = new Point(329, 0);
 			splitter1.Name = "splitter1";
 			splitter1.Size = new Size(3, 359);
 			splitter1.TabIndex = 6;
@@ -141,17 +141,17 @@
 			paReactionTime.Dock = DockStyle.Left;
 			paReactionTime.Location = new Point(0, 0);
 			paReactionTime.Name = "paReactionTime";
-			paReactionTime.Size = new Size(242, 359);
+			paReactionTime.Size = new Size(329, 359);
 			paReactionTime.TabIndex = 5;
 			// 
 			// DashboardForm
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(784, 411);
+			ClientSize = new Size(993, 411);
 			Controls.Add(paContent);
 			Controls.Add(paButtons);
-			MinimumSize = new Size(800, 450);
+			MinimumSize = new Size(1009, 450);
 			Name = "DashboardForm";
 			Text = "Dashboard";
 			paButtons.ResumeLayout(false);
