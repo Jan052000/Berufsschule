@@ -11,13 +11,9 @@ namespace HumanBenchmarks.Forms
 		public MainForm()
 		{
 			DbConnection.InitDB();
-			LoginForm login = new LoginForm();
-			login.ShowDialog();
-			CurrentUser = login.User;
-
 			InitializeComponent();
+			DoLogin();
 			MinimumSize = new Size(GetMinimumWidth(), GetMinimumHeight());
-			btDashboard.Enabled = CurrentUser != null;
 		}
 
 		private int GetMinimumWidth()
@@ -30,11 +26,6 @@ namespace HumanBenchmarks.Forms
 		private int GetMinimumHeight()
 		{
 			return 200;
-		}
-
-		private void btClose_Click(object sender, EventArgs e)
-		{
-			Close();
 		}
 
 		private void btReactionCheck_Click(object sender, EventArgs e)
@@ -102,6 +93,22 @@ namespace HumanBenchmarks.Forms
 			if (CurrentUser == null)
 				return;
 			new DashboardForm(CurrentUser).Show();
+		}
+
+		private void DoLogin()
+		{
+			CurrentUser = null;
+			LoginForm login = new LoginForm();
+			login.ShowDialog();
+			CurrentUser = login.User;
+			btDashboard.Enabled = CurrentUser != null;
+		}
+
+		private void btLogout_Click(object sender, EventArgs e)
+		{
+			Hide();
+			DoLogin();
+			ShowDialog();
 		}
 	}
 }
