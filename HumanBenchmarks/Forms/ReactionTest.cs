@@ -1,8 +1,9 @@
-﻿using System.Diagnostics;
+﻿using HumanBenchmarks.Db.Classes;
+using System.Diagnostics;
 
 namespace HumanBenchmarks.Forms
 {
-	public partial class ReactionTest : Form
+	internal partial class ReactionTest : Form, IGame
 	{
 		public const string GAMENAME = "Reaction";
 		public const int GAMEID = 0;
@@ -97,5 +98,16 @@ namespace HumanBenchmarks.Forms
 		{
 			paGameArea.Invalidate();
 		}
+
+		#region IGame
+		public string GameName => GAMENAME;
+
+		public int GameID => GAMEID;
+
+		public ScoreClass ConvertToSpecificScore(ScoreClass score)
+		{
+			return new Scores.ReactionTestScore(score);
+		}
+		#endregion
 	}
 }

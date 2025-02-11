@@ -1,8 +1,9 @@
-﻿using System.Diagnostics;
+﻿using HumanBenchmarks.Db.Classes;
+using System.Diagnostics;
 
 namespace HumanBenchmarks.Forms
 {
-	internal partial class AimTest : Form
+	internal partial class AimTest : Form, IGame
 	{
 		public const string GAMENAME = "Aim";
 		public const int GAMEID = 2;
@@ -145,5 +146,16 @@ namespace HumanBenchmarks.Forms
 			e.Graphics.DrawLine(line, TargetBounds.X + TargetBounds.Width / 2, TargetBounds.Y, TargetBounds.X + TargetBounds.Width / 2, TargetBounds.Y + TargetBounds.Height);
 			e.Graphics.DrawLine(line, TargetBounds.X, TargetBounds.Y + TargetBounds.Height / 2, TargetBounds.X + TargetBounds.Width, TargetBounds.Y + TargetBounds.Height / 2);
 		}
+
+		#region IGame
+		public string GameName => GameName;
+
+		public int GameID => GAMEID;
+
+		public ScoreClass ConvertToSpecificScore(ScoreClass score)
+		{
+			return new Scores.AimTestScore(score);
+		}
+		#endregion
 	}
 }

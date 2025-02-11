@@ -6,12 +6,30 @@ namespace HumanBenchmarks.Forms.Dashboard
 {
 	internal partial class DashboardForm : Form
 	{
-		private UserClass ActiveUser { get; }
+		private UserClass? ActiveUser { get; }
+		private List<ScoreClass> Scores { get; } = new List<ScoreClass>();
 
 		public DashboardForm(UserClass activeUser)
 		{
 			InitializeComponent();
+			Setup();
 
+			ActiveUser = activeUser;
+
+			AddFilteredControls();
+		}
+
+		public DashboardForm(List<ScoreClass> scores)
+		{
+			InitializeComponent();
+			Setup();
+			Scores = scores;
+
+			AddFilteredControls();
+		}
+
+		private void Setup()
+		{
 			dtpStart.MinDate = dtpEnd.MinDate = DateTime.MinValue;
 			dtpStart.Value = dtpStart.MinDate;
 			dtpStart.MaxDate = dtpEnd.MaxDate = DateTime.MaxValue;
@@ -19,10 +37,6 @@ namespace HumanBenchmarks.Forms.Dashboard
 
 			dtpStart.ValueChanged += DateTimeChanged;
 			dtpEnd.ValueChanged += DateTimeChanged;
-
-			ActiveUser = activeUser;
-
-			AddFilteredControls();
 		}
 
 		public void UpdateScores()
@@ -32,7 +46,11 @@ namespace HumanBenchmarks.Forms.Dashboard
 
 		private void AddFilteredControls()
 		{
-			List<ScoreClass> n = DbConnection.GetTestScores(ActiveUser, dtpStart.Value.Date, dtpEnd.Value.Date);
+			List<ScoreClass> n;
+			if (ActiveUser == null)
+				n = Scores.Where(score => dtpStart.Value.Date <= score.TestDate && score.TestDate <= dtpEnd.Value.Date).ToList();
+			else
+				n = DbConnection.GetTestScores(ActiveUser, dtpStart.Value.Date, dtpEnd.Value.Date);
 			paReactionTime.Controls.Clear();
 			paReactionTime.Controls.Add(new ScoreControl(n.Where(score => score is ReactionTestScore).ToList(), ReactionTest.GAMENAME) { Dock = DockStyle.Fill });
 			paSimonSays.Controls.Clear();

@@ -8,7 +8,7 @@ namespace HumanBenchmarks.Scores
 		[DataGridColumn("Reaktionszeit MS", typeof(DataGridViewTextBoxCell), Readonly = true)]
 		public new double? Score { get => base.Score; set => base.Score = value; }
 
-		public ReactionTestScore(ScoreClass score) : base()
+		public ReactionTestScore(ScoreClass score)
 		{
 			ID = score.ID;
 			ResidentID = score.ResidentID;

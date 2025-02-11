@@ -1,6 +1,8 @@
-﻿namespace HumanBenchmarks.Forms
+﻿using HumanBenchmarks.Db.Classes;
+
+namespace HumanBenchmarks.Forms
 {
-	internal partial class SimonSaysGame : Form
+	internal partial class SimonSaysGame : Form, IGame
 	{
 		public const string GAMENAME = "Simon says";
 		public const int GAMEID = 1;
@@ -190,6 +192,17 @@
 			GameStarted = true;
 			await NextGameRoundAsync();
 		}
+
+		#region IGame
+		public string GameName => GAMENAME;
+
+		public int GameID => GAMEID;
+
+		public ScoreClass ConvertToSpecificScore(ScoreClass score)
+		{
+			return new Scores.SimonSaysScore(score);
+		}
+		#endregion
 	}
 
 	internal class TestTableLayoutPanel : TableLayoutPanel
