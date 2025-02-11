@@ -20,7 +20,7 @@ namespace Liegeplatzverwaltung.Extensions
 					$"{GetColumnName<Liegeplatz>("Depth")}>={depth} AND\n" +
 					$"{GetColumnName<Liegeplatz>("Width")}>={width} AND\n" +
 					$"{GetColumnName<Liegeplatz>("Length")}>={length} AND\n" +
-					$"({GetColumnName<Liegeplatz>("YachtID")}='' OR {GetColumnName<Liegeplatz>("YachtID")} is NULL) AND" +
+					$"({GetColumnName<Liegeplatz>("YachtID")}='' OR {GetColumnName<Liegeplatz>("YachtID")} is NULL) AND\n" +
 					$"{GetColumnName<Liegeplatz>("Status")}='Open'";
 				using SQLiteDataReader reader = cmd.ExecuteReader();
 				while (reader.Read())
