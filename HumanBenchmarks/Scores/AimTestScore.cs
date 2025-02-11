@@ -25,7 +25,7 @@ namespace HumanBenchmarks.Scores
 
 			res.t = (int?)Score ?? 0 * 10 / 10;
 			if (Score is double score)
-				res.a = (score - Math.Floor(score)) * 100;
+				res.a = (score - Math.Floor(score)) * 1000;
 			res.a = Math.Round(res.a, 2);
 
 			return res;

@@ -93,12 +93,13 @@ namespace HumanBenchmarks.Forms
 				return;
 			DateTime today = DateTime.Today;
 			double accuracy = Math.Round(test.Accuracy * 10000, 0);
+			var s = $"{(accuracy < 10000 ? $"0{accuracy}" : accuracy)}";
 			ScoreClass score = new ScoreClass()
 			{
 				GameID = test.GameID,
 				ResidentID = CurrentUser?.Id,
 				TestDate = today,
-				Score = double.Parse($"{Math.Round(test.TimesInTicks.Average() / 10000, 0)}.{(accuracy < 100 ? $"0{accuracy}" : accuracy)}", System.Globalization.CultureInfo.InvariantCulture)
+				Score = double.Parse($"{Math.Round(test.TimesInTicks.Average() / 10000, 0)}.{(accuracy < 10000 ? $"0{accuracy}" : accuracy)}", System.Globalization.CultureInfo.InvariantCulture)
 			};
 			SaveScore(score, test);
 			DashboardForm?.UpdateScores();
