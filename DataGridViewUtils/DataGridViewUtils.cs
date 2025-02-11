@@ -43,6 +43,8 @@ namespace DataGridViewUtils
 			{
 				DataGridColumnAttribute column = property.GetCustomAttribute<DataGridColumnAttribute>()!;
 				DataGridViewColumn col = DataGridViewCellSwitch.SwitchType(column.CellType);
+				if (column.Format is string format)
+					col.DefaultCellStyle.Format = format;
 				col.Name = "col" + column.DisplayName;
 				col.HeaderText = column.DisplayName;
 				int index = dataGridView.Columns.Add(col);
