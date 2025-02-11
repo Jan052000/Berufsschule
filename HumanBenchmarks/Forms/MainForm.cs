@@ -44,6 +44,8 @@ namespace HumanBenchmarks.Forms
 		{
 			ReactionTest test = new ReactionTest();
 			test.ShowDialog();
+			if (test.Results.Count == 0)
+				return;
 			DateTime today = DateTime.Today;
 			foreach (int score in test.Results)
 			{
@@ -63,6 +65,8 @@ namespace HumanBenchmarks.Forms
 		{
 			SimonSaysGame test = new SimonSaysGame();
 			test.ShowDialog();
+			if (test.Results.Count == 0)
+				return;
 			DateTime today = DateTime.Today;
 			foreach ((int Round, int Step) in test.Results)
 			{
@@ -85,9 +89,9 @@ namespace HumanBenchmarks.Forms
 		{
 			AimTest test = new AimTest();
 			test.ShowDialog();
-			DateTime today = DateTime.Today;
 			if (!test.GameStarted)
 				return;
+			DateTime today = DateTime.Today;
 			double accuracy = Math.Round(test.Accuracy * 10000, 0);
 			ScoreClass score = new ScoreClass()
 			{

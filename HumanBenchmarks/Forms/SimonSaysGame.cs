@@ -7,7 +7,7 @@ namespace HumanBenchmarks.Forms
 		public const string GAMENAME = "Simon says";
 		public const int GAMEID = 1;
 		private int NextIndex = -1;
-		private bool GameStarted = false;
+		public bool GameStarted { get; private set; } = false;
 		private bool Flashing = false;
 		private List<Point> GameSteps { get; } = new List<Point>();
 		private Dictionary<Point, Button> Buttons { get; } = new Dictionary<Point, Button>();
