@@ -1,4 +1,4 @@
-﻿using HumanBenchmarks.Db;
+using HumanBenchmarks.Db;
 using HumanBenchmarks.Db.Classes;
 using HumanBenchmarks.Forms.Dashboard;
 
@@ -121,6 +121,7 @@ namespace HumanBenchmarks.Forms
 
 		private void btLogout_Click(object sender, EventArgs e)
 		{
+			DashboardForm?.Close();
 			Hide();
 			DoLogin();
 			Show();
