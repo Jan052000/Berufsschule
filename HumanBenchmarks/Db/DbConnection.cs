@@ -142,7 +142,7 @@ namespace HumanBenchmarks.Db
 		{
 			using var conn = GetSQLiteConnection();
 			using var cmd = conn.CreateCommand();
-			cmd.CommandText = DbUtils.GetGetSingleFromForeign<ScoreClass, UserClass>(user, DbDialect);
+			cmd.CommandText = DbUtils.GetGetFromForeignCommand<ScoreClass, UserClass>(user, DbDialect);
 
 			string where = "";
 			if (start is DateTime sdt)
@@ -150,7 +150,7 @@ namespace HumanBenchmarks.Db
 			if (end is DateTime edt)
 				where += $"\nAND TestDatum<={DbDialect.FormatValue(end)}";
 			if (!cmd.CommandText.Contains("WHERE", StringComparison.InvariantCultureIgnoreCase) && !string.IsNullOrEmpty(where))
-				where = "WHERE" + where;
+				where = " WHERE " + where;
 			cmd.CommandText += where;
 
 			List<ScoreClass> scores = new List<ScoreClass>();

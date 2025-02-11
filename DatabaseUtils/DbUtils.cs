@@ -293,7 +293,7 @@ namespace DataBaseUtils
 		/// <param name="cols">Optional <see cref="List{T}"/> of column names to select (selects all if <see langword="null"/>)</param>
 		/// <param name="tableObject">Optional object of table to get data from</param>
 		/// <returns>Command to get all rows  for foreign keys</returns>
-		public static string GetGetSingleFromForeign<T, F>(F foreignObject, IDbTypeSwitch dialect, List<string>? cols = null, T? tableObject = null) where T : class where F : class
+		public static string GetGetFromForeignCommand<T, F>(F foreignObject, IDbTypeSwitch dialect, List<string>? cols = null, T? tableObject = null) where T : class where F : class
 		{
 			string command = $"SELECT {String.Join(",", cols ?? new List<string>() { "*" })} FROM {GetTableName<T>()}";
 
