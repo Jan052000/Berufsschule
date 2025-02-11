@@ -1,9 +1,12 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumanBenchmarks", "HumanBenchmarks\HumanBenchmarks.csproj", "{8FB9AF1C-084E-47A2-BFCD-C4D6342A8EE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumanBenchmarks", "HumanBenchmarks\HumanBenchmarks.csproj", "{8FB9AF1C-084E-47A2-BFCD-C4D6342A8EE0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseUtils", "DatabaseUtils\DatabaseUtils.csproj", "{CD1C4B62-52F3-4779-92E1-D0D8879615E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataGridViewUtils", "DataGridViewUtils\DataGridViewUtils.csproj", "{1A332A19-A432-4D63-9E94-167EC53CB061}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +18,14 @@ Global
 		{8FB9AF1C-084E-47A2-BFCD-C4D6342A8EE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FB9AF1C-084E-47A2-BFCD-C4D6342A8EE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FB9AF1C-084E-47A2-BFCD-C4D6342A8EE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD1C4B62-52F3-4779-92E1-D0D8879615E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD1C4B62-52F3-4779-92E1-D0D8879615E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD1C4B62-52F3-4779-92E1-D0D8879615E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD1C4B62-52F3-4779-92E1-D0D8879615E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A332A19-A432-4D63-9E94-167EC53CB061}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A332A19-A432-4D63-9E94-167EC53CB061}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A332A19-A432-4D63-9E94-167EC53CB061}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A332A19-A432-4D63-9E94-167EC53CB061}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,13 +1,18 @@
-﻿namespace HumanBenchmarks.Forms
+﻿using HumanBenchmarks.Db.Classes;
+
+namespace HumanBenchmarks.Forms
 {
-	public partial class SimonSaysGame : Form
+	internal partial class SimonSaysGame : Form, IGame
 	{
+		public const string GAMENAME = "Simon says";
+		public const int GAMEID = 1;
 		private int NextIndex = -1;
-		private bool GameStarted = false;
+		public bool GameStarted { get; private set; } = false;
 		private bool Flashing = false;
 		private List<Point> GameSteps { get; } = new List<Point>();
 		private Dictionary<Point, Button> Buttons { get; } = new Dictionary<Point, Button>();
 		private int GameSize { get; set; } = -1;
+		private int InitialGameSize { get; set; } = 3;
 		private int FlashIntervalMS => 1000;
 		private Color FlashColor => Color.Blue;
 		private Color ButtonBackColor => SystemColors.ControlDark;
@@ -16,7 +21,8 @@
 		public SimonSaysGame()
 		{
 			InitializeComponent();
-			SetupGame(3);
+			SetupGame(InitialGameSize);
+			nudSize.Value = InitialGameSize;
 		}
 
 		private void Reset()
@@ -151,8 +157,9 @@
 			Interlocked.Exchange(ref NextIndex, -1);
 			return Task.Run(async () =>
 			{
-				foreach (Point p in GameSteps)
+				for (int i = 0; i < GameSteps.Count; i++)
 				{
+					Point p = GameSteps[i];
 					Button b = Buttons[p];
 					if (b.InvokeRequired)
 						b.Invoke(() => b.BackColor = FlashColor);
@@ -163,7 +170,8 @@
 						b.Invoke(() => b.BackColor = ButtonBackColor);
 					else
 						b.BackColor = ButtonBackColor;
-					await Task.Delay(500);
+					if (i != GameSteps.Count - 1)
+						await Task.Delay(500);
 				}
 				if (nudRound.InvokeRequired)
 					nudRound.Invoke(() => nudRound.Value++);
@@ -184,9 +192,20 @@
 			GameStarted = true;
 			await NextGameRoundAsync();
 		}
+
+		#region IGame
+		public string GameName => GAMENAME;
+
+		public int GameID => GAMEID;
+
+		public ScoreClass ConvertToSpecificScore(ScoreClass score)
+		{
+			return new Scores.SimonSaysScore(score);
+		}
+		#endregion
 	}
 
-	public class TestTableLayoutPanel : TableLayoutPanel
+	internal class TestTableLayoutPanel : TableLayoutPanel
 	{
 		public TestTableLayoutPanel()
 		{

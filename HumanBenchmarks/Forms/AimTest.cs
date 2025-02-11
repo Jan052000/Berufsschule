@@ -1,22 +1,28 @@
-﻿namespace HumanBenchmarks.Forms
+﻿using HumanBenchmarks.Db.Classes;
+using System.Diagnostics;
+
+namespace HumanBenchmarks.Forms
 {
-	public partial class AimTest : Form
+	internal partial class AimTest : Form, IGame
 	{
+		public const string GAMENAME = "Aim";
+		public const int GAMEID = 2;
 		private const int TARGETSIZE = 25;
+		private const int TARGETRINGSPACING = 15;
 		private const int SPAWNDELAY = 100;
 
 		private int _Clicks = 0;
 		private int _Hits = 0;
-		private bool GameStarted = false;
-
-		private long? TimeStamp = null;
+		public bool GameStarted { get; private set; } = false;
 
 		public int Clicks => _Clicks;
 		public int Hits => _Hits;
 		public double Accuracy => _Hits / (double)_Clicks;
 		public List<long> TimesInTicks { get; } = new List<long>();
+		public List<double> HitAccuracies { get; } = new List<double>();
 
 		private Target? TargetBounds { get; set; } = null;
+		private Stopwatch? StopWatch { get; set; }
 
 		private class Target
 		{
@@ -33,13 +39,19 @@
 
 			public bool IsInTarget(int x1, int y1)
 			{
-				return Math.Sqrt(Math.Pow(x1 - (X + Width / 2), 2) + Math.Pow(y1 - (Y + Height / 2), 2)) <= TARGETSIZE / 2 + 1;
+				return DistanceFromCenterPX(x1, y1) <= TARGETSIZE / 2 + 1;
+			}
+
+			public double DistanceFromCenterPX(int x, int y)
+			{
+				return Math.Sqrt(Math.Pow(x - (X + Width / 2), 2) + Math.Pow(y - (Y + Height / 2), 2));
 			}
 		}
 
 		public AimTest()
 		{
 			InitializeComponent();
+			MinimumSize = new Size(150 + TARGETSIZE + 2, 150 + paButtons.Height + TARGETSIZE + 2);
 		}
 
 		private void WithInvoke(Control control, Action action)
@@ -82,6 +94,8 @@
 			WithInvoke(nudClicks, () => nudClicks.Value = _Clicks);
 			if (TargetBounds == null || !TargetBounds.IsInTarget(e.X, e.Y))
 				return;
+			HitAccuracies.Add(TargetBounds.DistanceFromCenterPX(e.X, e.Y));
+			WithInvoke(nudAvgDistance, () => nudAvgDistance.Value = (decimal)HitAccuracies.Average());
 			TargetBounds = null;
 			WithInvoke(paGame, paGame.Invalidate);
 			_Hits++;
@@ -94,10 +108,11 @@
 		{
 			return Task.Run(() =>
 			{
-				if (TimeStamp.HasValue)
+				if (StopWatch != null)
 				{
-					TimesInTicks.Add(DateTime.Now.Ticks - TimeStamp.Value);
-					WithInvoke(tbSpeed, () => tbSpeed.Text = $"{Convert.ToInt32(TimesInTicks.Average() / 10000)}ms");
+					StopWatch.Stop();
+					TimesInTicks.Add(StopWatch.ElapsedTicks);
+					WithInvoke(tbSpeed, () => tbSpeed.Text = $"{Math.Round(TimesInTicks.Average() / 10000)}ms");
 				}
 				Random r = new Random();
 				int x = r.Next(0, paGame.Width - TARGETSIZE);
@@ -105,7 +120,7 @@
 				TargetBounds = new Target(x, y);
 				WithInvoke(paGame, paGame.Invalidate);
 				WithInvoke(nudTargets, () => nudTargets.Value++);
-				TimeStamp = DateTime.Now.Ticks;
+				StopWatch = Stopwatch.StartNew();
 			});
 		}
 
@@ -116,10 +131,31 @@
 				TextRenderer.DrawText(e.Graphics, "Click to Start", paGame.Font, paGame.Bounds, paGame.ForeColor);
 				return;
 			}
-			if (TargetBounds is not Target bounds)
+			if (TargetBounds == null)
 				return;
+
 			using Pen line = new Pen(Color.Black, 1);
-			e.Graphics.DrawEllipse(line, new Rectangle(bounds.X, bounds.Y, bounds.Height, bounds.Width));
+
+			for (int i = 0; i < TARGETSIZE; i += TARGETRINGSPACING)
+			{
+				int x1 = TargetBounds.X + i / 2;
+				int y1 = TargetBounds.Y + i / 2;
+
+				e.Graphics.DrawEllipse(line, x1, y1, TARGETSIZE - i, TARGETSIZE - i);
+			}
+			e.Graphics.DrawLine(line, TargetBounds.X + TargetBounds.Width / 2, TargetBounds.Y, TargetBounds.X + TargetBounds.Width / 2, TargetBounds.Y + TargetBounds.Height);
+			e.Graphics.DrawLine(line, TargetBounds.X, TargetBounds.Y + TargetBounds.Height / 2, TargetBounds.X + TargetBounds.Width, TargetBounds.Y + TargetBounds.Height / 2);
 		}
+
+		#region IGame
+		public string GameName => GameName;
+
+		public int GameID => GAMEID;
+
+		public ScoreClass ConvertToSpecificScore(ScoreClass score)
+		{
+			return new Scores.AimTestScore(score);
+		}
+		#endregion
 	}
 }

@@ -29,12 +29,12 @@
 		private void InitializeComponent()
 		{
 			paBottom = new Panel();
+			laRound = new Label();
 			btRegenField = new Button();
 			nudSize = new NumericUpDown();
 			btStart = new Button();
 			nudRound = new NumericUpDown();
 			tlpGame = new TestTableLayoutPanel();
-			laRound = new Label();
 			paBottom.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)nudSize).BeginInit();
 			((System.ComponentModel.ISupportInitialize)nudRound).BeginInit();
@@ -50,13 +50,22 @@
 			paBottom.Dock = DockStyle.Bottom;
 			paBottom.Location = new Point(0, 393);
 			paBottom.Name = "paBottom";
-			paBottom.Size = new Size(800, 57);
+			paBottom.Size = new Size(936, 57);
 			paBottom.TabIndex = 0;
+			// 
+			// laRound
+			// 
+			laRound.AutoSize = true;
+			laRound.Location = new Point(12, 26);
+			laRound.Name = "laRound";
+			laRound.Size = new Size(42, 15);
+			laRound.TabIndex = 4;
+			laRound.Text = "Round";
 			// 
 			// btRegenField
 			// 
 			btRegenField.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			btRegenField.Location = new Point(506, 22);
+			btRegenField.Location = new Point(642, 22);
 			btRegenField.Name = "btRegenField";
 			btRegenField.Size = new Size(75, 23);
 			btRegenField.TabIndex = 3;
@@ -67,7 +76,7 @@
 			// nudSize
 			// 
 			nudSize.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			nudSize.Location = new Point(587, 22);
+			nudSize.Location = new Point(723, 22);
 			nudSize.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
 			nudSize.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
 			nudSize.Name = "nudSize";
@@ -78,7 +87,7 @@
 			// btStart
 			// 
 			btStart.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			btStart.Location = new Point(713, 22);
+			btStart.Location = new Point(849, 22);
 			btStart.Name = "btStart";
 			btStart.Size = new Size(75, 23);
 			btStart.TabIndex = 1;
@@ -107,26 +116,18 @@
 			tlpGame.RowCount = 2;
 			tlpGame.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
 			tlpGame.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-			tlpGame.Size = new Size(800, 393);
+			tlpGame.Size = new Size(936, 393);
 			tlpGame.TabIndex = 1;
-			// 
-			// laRound
-			// 
-			laRound.AutoSize = true;
-			laRound.Location = new Point(12, 26);
-			laRound.Name = "laRound";
-			laRound.Size = new Size(42, 15);
-			laRound.TabIndex = 4;
-			laRound.Text = "Round";
 			// 
 			// SimonSaysGame
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(800, 450);
+			ClientSize = new Size(936, 450);
 			Controls.Add(tlpGame);
 			Controls.Add(paBottom);
 			Name = "SimonSaysGame";
+			StartPosition = FormStartPosition.CenterParent;
 			Text = "SimonSays";
 			paBottom.ResumeLayout(false);
 			paBottom.PerformLayout();

@@ -1,9 +1,12 @@
-﻿using System.Diagnostics;
+﻿using HumanBenchmarks.Db.Classes;
+using System.Diagnostics;
 
 namespace HumanBenchmarks.Forms
 {
-	public partial class ReactionTest : Form
+	internal partial class ReactionTest : Form, IGame
 	{
+		public const string GAMENAME = "Reaction";
+		public const int GAMEID = 0;
 		private bool WaitForStart { get; set; } = true;
 		private bool ShowGreen { get; set; } = false;
 		public List<int> Results { get; } = new List<int>();
@@ -32,7 +35,7 @@ namespace HumanBenchmarks.Forms
 			{
 				string text;
 				if (FailStart)
-					text = "You clicked too soon.";
+					text = "You clicked too soon,\n click again to start.";
 				else
 					text = $"Click here to start, wait for green and then click again.\n{(Result != null ? Result + "ms" : "")}";
 				TextRenderer.DrawText(e.Graphics, text, c.Font, c.Bounds, c.ForeColor);
@@ -62,7 +65,10 @@ namespace HumanBenchmarks.Forms
 				if (!TimerElapsed)
 					FailStart = true;
 				else if (Result.HasValue)
+				{
 					Results.Add(Result.Value);
+					tbAvg.Text = $"{Math.Round(Results.Average(), 3)}ms";
+				}
 				WaitForStart = true;
 				ShowGreen = false;
 				TimerElapsed = false;
@@ -92,5 +98,16 @@ namespace HumanBenchmarks.Forms
 		{
 			paGameArea.Invalidate();
 		}
+
+		#region IGame
+		public string GameName => GAMENAME;
+
+		public int GameID => GAMEID;
+
+		public ScoreClass ConvertToSpecificScore(ScoreClass score)
+		{
+			return new Scores.ReactionTestScore(score);
+		}
+		#endregion
 	}
 }

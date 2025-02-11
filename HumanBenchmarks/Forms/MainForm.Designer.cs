@@ -28,22 +28,12 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			btClose = new Button();
 			btReactionCheck = new Button();
 			btSimonSays = new Button();
 			btAimTest = new Button();
+			btDashboard = new Button();
+			btLogout = new Button();
 			SuspendLayout();
-			// 
-			// btClose
-			// 
-			btClose.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			btClose.Location = new Point(713, 415);
-			btClose.Name = "btClose";
-			btClose.Size = new Size(75, 23);
-			btClose.TabIndex = 0;
-			btClose.Text = "Close";
-			btClose.UseVisualStyleBackColor = true;
-			btClose.Click += btClose_Click;
 			// 
 			// btReactionCheck
 			// 
@@ -75,25 +65,48 @@
 			btAimTest.UseVisualStyleBackColor = true;
 			btAimTest.Click += btAimTest_Click;
 			// 
+			// btDashboard
+			// 
+			btDashboard.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			btDashboard.Location = new Point(815, 12);
+			btDashboard.Name = "btDashboard";
+			btDashboard.Size = new Size(109, 23);
+			btDashboard.TabIndex = 4;
+			btDashboard.Text = "Dashboard";
+			btDashboard.UseVisualStyleBackColor = true;
+			btDashboard.Click += btDashboard_Click;
+			// 
+			// btLogout
+			// 
+			btLogout.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			btLogout.Location = new Point(815, 415);
+			btLogout.Name = "btLogout";
+			btLogout.Size = new Size(109, 23);
+			btLogout.TabIndex = 5;
+			btLogout.Text = "Abmelden";
+			btLogout.UseVisualStyleBackColor = true;
+			btLogout.Click += btLogout_Click;
+			// 
 			// MainForm
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(800, 450);
+			ClientSize = new Size(936, 450);
+			Controls.Add(btLogout);
+			Controls.Add(btDashboard);
 			Controls.Add(btAimTest);
 			Controls.Add(btSimonSays);
 			Controls.Add(btReactionCheck);
-			Controls.Add(btClose);
 			Name = "MainForm";
 			Text = "MainForm";
 			ResumeLayout(false);
 		}
 
 		#endregion
-
-		private Button btClose;
 		private Button btReactionCheck;
 		private Button btSimonSays;
 		private Button btAimTest;
+		private Button btDashboard;
+		private Button btLogout;
 	}
 }
