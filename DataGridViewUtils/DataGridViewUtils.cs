@@ -45,7 +45,7 @@ namespace DataGridViewUtils
 				DataGridViewColumn col = DataGridViewCellSwitch.SwitchType(column.CellType);
 				if (column.Format is string format)
 					col.DefaultCellStyle.Format = format;
-				col.Name = "col" + column.DisplayName;
+				col.Name = GetColumnName(column.DisplayName);
 				col.HeaderText = column.DisplayName;
 				int index = dataGridView.Columns.Add(col);
 				if (column.Readonly)
@@ -100,7 +100,7 @@ namespace DataGridViewUtils
 		}
 
 		/// <summary>
-		/// Updates data from <paramref name="pier"/> to match that of <paramref name="cell"/>
+		/// Updates data from <paramref name="obj"/> to match that of <paramref name="cell"/>
 		/// </summary>
 		/// <param name="cell"><see cref="DataGridViewCell"/> to grab value from</param>
 		/// <param name="obj">Object to update cell value with</param>
@@ -132,11 +132,12 @@ namespace DataGridViewUtils
 		/// <exception cref="NullReferenceException"></exception>
 		public static object? GetTagValueForCell<T>(DataGridViewCell cell) where T : class
 		{
-			T? pier = cell.OwningRow.Tag as T;
-			PropertyInfo? pi = pier?.GetType().GetProperties().FirstOrDefault(prop => prop.GetCustomAttribute<DataGridColumnAttribute>() is DataGridColumnAttribute attr && attr.DisplayName == cell.OwningColumn.HeaderText);
-			if (pi == null)
+			if (cell.OwningRow.Tag is not T tag)
+				return null;
+			PropertyInfo? property = tag?.GetType().GetProperties().FirstOrDefault(prop => prop.GetCustomAttribute<DataGridColumnAttribute>() is DataGridColumnAttribute attr && attr.DisplayName == cell.OwningColumn.HeaderText);
+			if (property == null)
 				throw new NullReferenceException();
-			return pi.GetValue(pier);
+			return property.GetValue(tag);
 		}
 	}
 }
