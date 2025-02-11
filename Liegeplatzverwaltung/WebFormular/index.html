@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Titel</title>
+	<script>
+
+		function submitClick() {
+			startRequest();
+		}
+
+		function startRequest() {
+			const form = document.querySelector("form");
+			const inputs = Array.from(form.querySelectorAll("input"));
+
+			if (inputs.map(input => input.value).includes("")) {
+				alert("Bittle alle Felder ausfüllen.");
+				return;
+			}
+
+			const dataElements = inputs
+				.map(input => `${input.name}=${input.value}`)
+				.join("&");
+
+			sendRequest(dataElements);
+		}
+
+		async function sendRequest(dataString) {
+			const url = 'localhost:6969?' + dataString;
+			try {
+				const response = await fetch(url);
+				if (!response.ok) {
+					throw new Error(`Response status ${response.status}`);
+				}
+
+				console.log(response.body);
+			}
+			catch (err) {
+				console.error(error.message);
+			}
+		}
+	</script>
+	<style>
+		form {
+			display: grid;
+			grid-template-columns: 125px 100%;
+		}
+
+		.formSubmit {
+			grid-column: 1 / 3;
+		}
+
+		.formContainer {
+			width: 300px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="formContainer">
+		<form>
+			<label for="email" required>Email:</label>
+			<input type="email" id="email" name="EMail" />
+			<label for="type" required>Schiff Typ:</label>
+			<input type="text" id="type" name="Type" />
+			<label for="depth" required>Tiefe:</label>
+			<input type="number" id="depth" name="Depth" />
+			<label for="length" required>L&auml;nge:</label>
+			<input type="number" id="length" name="Length" />
+			<label for="width" required>Breite:</label>
+			<input type="number" id="width" name="Width" />
+			<label for="imo" required>IMO-Nummer:</label>
+			<input type="number" id="imo" name="IMO" />
+			<button onclick="submitClick()" class="formSubmit">Daten Senden</button>
+		</form>
+	</div>
+</body>
+
+</html>
