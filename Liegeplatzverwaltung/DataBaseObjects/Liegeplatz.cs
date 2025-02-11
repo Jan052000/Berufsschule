@@ -1,6 +1,6 @@
-﻿using Liegeplatzverwaltung.DataBaseUtils;
-using Liegeplatzverwaltung.DataBaseUtils.Attributes;
-using Liegeplatzverwaltung.DataGridViewUtils.Attributes;
+﻿using DataBaseUtils;
+using DataBaseUtils.Attributes;
+using DataGridViewUtils.Attributes;
 using Liegeplatzverwaltung.Extensions;
 using System.ComponentModel;
 

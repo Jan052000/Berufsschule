@@ -18,6 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DatabaseUtils\DatabaseUtils.csproj" />
+    <ProjectReference Include="..\DataGridViewUtils\DataGridViewUtils.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="System.Data.SQLite">
       <HintPath>..\..\..\DevPack\Libs\DbBase\ClientUnitTests\bin\Debug\net48\System.Data.SQLite.dll</HintPath>
     </Reference>

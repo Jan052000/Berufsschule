@@ -1,5 +1,5 @@
+using DataBaseUtils;
 using Liegeplatzverwaltung.DataBaseObjects;
-using Liegeplatzverwaltung.DataBaseUtils;
 using Liegeplatzverwaltung.Extensions;
 using Liegeplatzverwaltung.FrontendConnection;
 using Liegeplatzverwaltung.RequestBooking;
@@ -110,7 +110,7 @@ namespace Liegeplatzverwaltung
 			if (MessageBox.Show("Save changes?", "Save changes?", MessageBoxButtons.YesNo) != DialogResult.Yes)
 			{
 				IsUpdating = true;
-				cell.Value = DataGridViewUtils.DataGridViewUtils.GetTagValueForCell(cell);
+				cell.Value = DataGridViewUtils.DataGridViewUtils.GetTagValueForCell<Liegeplatz>(cell);
 				IsUpdating = false;
 				return;
 			}

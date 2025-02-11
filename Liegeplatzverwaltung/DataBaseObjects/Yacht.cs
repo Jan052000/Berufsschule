@@ -1,5 +1,5 @@
-﻿using Liegeplatzverwaltung.DataBaseUtils;
-using Liegeplatzverwaltung.DataBaseUtils.Attributes;
+﻿using DataBaseUtils;
+using DataBaseUtils.Attributes;
 
 namespace Liegeplatzverwaltung.DataBaseObjects
 {

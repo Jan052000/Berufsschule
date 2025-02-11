@@ -1,8 +1,8 @@
 ﻿using Liegeplatzverwaltung.DataBaseObjects;
-using Liegeplatzverwaltung.DataBaseUtils.Attributes;
 using System.Data;
 using System.Reflection;
 using Liegeplatzverwaltung.Extensions;
+using DataBaseUtils.Attributes;
 
 namespace Liegeplatzverwaltung
 {

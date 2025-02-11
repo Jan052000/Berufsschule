@@ -1,5 +1,5 @@
-﻿using Liegeplatzverwaltung.DataBaseObjects;
-using Liegeplatzverwaltung.DataGridViewUtils.Attributes;
+﻿using DataGridViewUtils.Attributes;
+using Liegeplatzverwaltung.DataBaseObjects;
 
 namespace Liegeplatzverwaltung.Extensions
 {

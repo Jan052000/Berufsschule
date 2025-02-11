@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
 using System.Data.SQLite;
-using Liegeplatzverwaltung.DataBaseUtils.Attributes;
 using Liegeplatzverwaltung.DataBaseObjects;
-using Liegeplatzverwaltung.DataBaseUtils;
 using Liegeplatzverwaltung.FrontendConnection;
+using DataBaseUtils;
+using DataBaseUtils.Attributes;
 
 namespace Liegeplatzverwaltung.Extensions
 {
